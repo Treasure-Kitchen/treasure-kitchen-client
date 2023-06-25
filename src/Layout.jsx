@@ -1,13 +1,14 @@
 import { Outlet } from 'react-router-dom';
 import './App.css';
 import NavigationBar from './features/components/public/common/NavigationBar';
+import { Container } from 'react-bootstrap';
 
 const Layout = () => {
   return (
-    <div className="App" style={{backgroundImage: 'url(https://res.cloudinary.com/otrprojs/image/upload/v1687569662/page-common-bg_jiy1g2.jpg)'}}>
+    <Container fluid className='m-0 p-0' style={{background: 'wheat', minHeight: '100vh'}}>
         <NavigationBar />
         <Outlet />
-    </div>
+    </Container>
   )
 }
 

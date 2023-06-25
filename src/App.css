@@ -1,7 +1,6 @@
 .App {
   margin: 0;
   padding: 0;
-  background-color: wheat;
   background-size: cover;
   min-height: 60vh;
   position: relative;
@@ -20,8 +19,31 @@
   background-color: rgba((0), 0, 0, .2);
 }
 
-.sideBar {
-  background-color: wheat;
+.BoxShadow {
+  box-shadow: -24px 32px 63px -21px rgba(0,0,0,0.67);
+-webkit-box-shadow: -24px 32px 63px -21px rgba(0,0,0,0.67);
+-moz-box-shadow: -24px 32px 63px -21px rgba(0,0,0,0.67);
+}
+
+.loginButton {
+  color: azure;
+  padding: 15px 25px;
+  border-radius: 5px;
+  width: 150px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.google {
+  background-color: #df4930;
+}
+
+.facebook {
+  background-color: #507cc0;
+}
+
+.twitter {
+  background-color: #00acee;
 }
 
 @media (max-width: 768px) {
@@ -31,47 +53,5 @@
 
   .AppHeading {
     font-size: calc(1.525rem + 3.3vw);
-  }
-}
-
-@media (max-width: 991px) {
-  .sideBar {
-    backdrop-filter: blur(10px);
-  }
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
-}
-
-.App-header {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-}
-
-.App-link {
-  color: rgb(112, 76, 182);
-}
-
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
   }
 }
