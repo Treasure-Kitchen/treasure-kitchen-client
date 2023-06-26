@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import '../../../../App.css';
-import {FaUserPlus, FaSignInAlt } from 'react-icons/fa';
+import {FaUserPlus, FaSignInAlt, FaHome, FaShoppingCart, FaBars, FaCalendar, FaInfoCircle, FaPhoneAlt } from 'react-icons/fa';
 
 const NavigationBar = () => {
   return (
@@ -19,13 +19,29 @@ const NavigationBar = () => {
                 <div className="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
                     <ul className="navbar-nav justify-content-center fs-5 align-items-center flex-grow-1 pe-3">
                         <li className="nav-item">
-                            <Link className="nav-link active" aria-current="page" to="/">Home</Link>
+                            <Link className="nav-link active mx-2" aria-current="page" to="/"><FaHome /> Home</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/about">About</Link>
+                        <li className="nav-item mx-2">
+                            <Link className="nav-link" to="/about"><FaInfoCircle /> About</Link>
                         </li>
-                        <li className="nav-item">
-                            <Link className="nav-link" to="/contact">Contact</Link>
+                        <li className="nav-item mx-2">
+                            <Link className="nav-link" to="/contact"><FaPhoneAlt /> Contact</Link>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#/" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
+                            <ul class="dropdown-menu bg-transparent fs-5">
+                                <li>
+                                    <Link className="dropdown-item text-white" aria-current="page" to="/reservation"><FaCalendar /> Book A Table</Link>
+                                </li>
+                                <li><hr class="dropdown-divider"/></li>
+                                <li>
+                                    <Link className="dropdown-item text-white" aria-current="page" to="/reservation"><FaShoppingCart /> Place an Order</Link>
+                                </li>
+                                <li><hr class="dropdown-divider"/></li>
+                                <li>
+                                    <Link className="dropdown-item text-white" aria-current="page" to="/reservation"><FaBars /> Menus</Link>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                     <div className='d-flex justify-content-center flex-lg-row flex-column fs-5 align-items-center gap-3'>
