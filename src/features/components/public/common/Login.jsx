@@ -7,8 +7,17 @@ const Login = () => {
   const google = () => {
     window.open("http://localhost:5500/auth/google", "_self");
   }
+
+  const facebook = () => {
+    window.open("http://localhost:5500/auth/facebook", "_self");
+  }
+
+  const twitter = () => {
+    window.open("http://localhost:5500/auth/twitter", "_self");
+  }
+
   return (
-    <Container fluid style={{position: 'relative'}}>
+    <Container style={{position: 'relative'}} fluid>
       <Row className="App" style={{backgroundImage: 'url(https://res.cloudinary.com/otrprojs/image/upload/v1687569662/page-common-bg_jiy1g2.jpg)'}}>
         <Row className="color-overlay d-flex justify-content-center align-items-center">
           <h1 className="AppHeading text-center">Welcome</h1>
@@ -20,13 +29,13 @@ const Login = () => {
           <Card
               bg='light'
               className="m-1 w-100 BoxShadow"
-              style={{minHeight: '30vh'}}v
+              style={{minHeight: '30vh'}}
             >
               <Card.Header className="text-center fs-5">Login/Sign Up</Card.Header>
               <Card.Body className="d-flex justify-content-center flex-column align-items-center">
                 <Card.Text className="google loginButton text-center" onClick={google}><FaGoogle /> Google</Card.Text>
-                <Card.Text className="facebook loginButton text-center"><FaFacebookF /> Facebook</Card.Text>
-                <Card.Text className="twitter loginButton text-center"><FaTwitter /> Twitter</Card.Text>
+                <Card.Text className="facebook loginButton text-center" onClick={facebook}><FaFacebookF /> Facebook</Card.Text>
+                <Card.Text className="twitter loginButton text-center" onClick={twitter}><FaTwitter /> Twitter</Card.Text>
               </Card.Body>
             </Card>
         </Col>

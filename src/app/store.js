@@ -13,7 +13,7 @@ export const store = configureStore({
       serializableCheck: {
       },
     }).concat(
-        
+        userApi.middleware
       )
 });
 

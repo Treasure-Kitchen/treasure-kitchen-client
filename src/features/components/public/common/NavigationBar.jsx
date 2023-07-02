@@ -27,17 +27,17 @@ const NavigationBar = () => {
                         <li className="nav-item mx-2">
                             <Link className="nav-link" to="/contact"><FaPhoneAlt /> Contact</Link>
                         </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#/" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
-                            <ul class="dropdown-menu bg-transparent fs-5">
+                        <li className="nav-item dropdown">
+                            <a className="nav-link dropdown-toggle" href="#/" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
+                            <ul className="dropdown-menu bg-transparent fs-5">
                                 <li>
                                     <Link className="dropdown-item text-white" aria-current="page" to="/reservation"><FaCalendar /> Book A Table</Link>
                                 </li>
-                                <li><hr class="dropdown-divider"/></li>
+                                <li><hr className="dropdown-divider"/></li>
                                 <li>
                                     <Link className="dropdown-item text-white" aria-current="page" to="/reservation"><FaShoppingCart /> Place an Order</Link>
                                 </li>
-                                <li><hr class="dropdown-divider"/></li>
+                                <li><hr className="dropdown-divider"/></li>
                                 <li>
                                     <Link className="dropdown-item text-white" aria-current="page" to="/reservation"><FaBars /> Menus</Link>
                                 </li>
