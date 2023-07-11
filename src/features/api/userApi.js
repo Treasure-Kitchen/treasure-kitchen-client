@@ -7,10 +7,18 @@ export const userApi = createApi({
     endpoints: (builder) => ({
         getUserWithCookie: builder.query({
             query: (userId) => `/${userId}`
+        }),
+        ping: builder.mutation({
+            query: (userId) => ({
+                url: `/${userId}`,
+                method: 'POST',
+                body: {}
+            })
         })
     })
 });
 
 export const {
-    useGetUserWithCookieQuery
+    useGetUserWithCookieQuery,
+    usePingMutation
 } = userApi;

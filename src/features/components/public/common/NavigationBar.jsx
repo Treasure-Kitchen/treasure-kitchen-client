@@ -1,8 +1,19 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../../../../App.css';
-import {FaUserPlus, FaSignInAlt, FaHome, FaShoppingCart, FaBars, FaCalendar, FaInfoCircle, FaPhoneAlt } from 'react-icons/fa';
+import {FaUserPlus, FaSignInAlt, FaHome, FaShoppingCart, FaBars, FaCalendar, FaInfoCircle, FaPhoneAlt, FaSignOutAlt } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../../auth/authSlice';
 
 const NavigationBar = () => {
+    const navigate = useNavigate();
+    const { user } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+
+    const useOnLogOut = async() => {
+        dispatch(logout());
+        navigate('/', { replace: true });
+    }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
         <div className="container">
@@ -44,13 +55,19 @@ const NavigationBar = () => {
                             </ul>
                         </li>
                     </ul>
-                    <div className='d-flex justify-content-center flex-lg-row flex-column fs-5 align-items-center gap-3'>
-                        <Link 
-                            to="/login" 
-                            className='text-white text-center text-decoration-none px-3 py-1 rounded-4'
-                            style={{backgroundColor: '#553d3a'}}
-                            ><FaSignInAlt /> | <FaUserPlus />
-                        </Link>
+                    <div 
+                        className='d-flex justify-content-center text-white py-1  px-2 rounded-4 flex-lg-row fs-5 align-items-center gap-3'
+                        style={{backgroundColor: '#553d3a'}}
+                    >
+                        { user ? 
+                            <>
+                                <Link onClick={useOnLogOut} className='text-white text-center px-2 text-decoration-none'><FaSignOutAlt /></Link>
+                            </> :
+                            <>
+                                <Link to='/login' className='text-white text-center px-2 text-decoration-none'><FaSignInAlt /></Link> |
+                                <Link to='/register' className='text-white text-center px-2 text-decoration-none'><FaUserPlus /></Link>
+                            </>
+                        }
                     </div>
                 </div>
             </div>
