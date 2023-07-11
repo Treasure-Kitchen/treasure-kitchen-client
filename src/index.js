@@ -8,23 +8,23 @@ import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-// import { PersistGate } from 'redux-persist/integration/react';
-//import { persistStore } from 'redux-persist';
+import { PersistGate } from 'redux-persist/integration/react';
+import { persistStore } from 'redux-persist';
 
 const container = document.getElementById('root');
 const root = createRoot(container);
-//const persistor = persistStore(store);
+let persistor = persistStore(store);
 
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <PersistGate persistor={persistor}> */}
+      <PersistGate persistor={persistor}>
         <BrowserRouter>
           <Routes>
             <Route path='/*' element={<App />} />
           </Routes>
         </BrowserRouter>
-      {/* </PersistGate> */}
+      </PersistGate>
       <ToastContainer />
     </Provider>
   </React.StrictMode>

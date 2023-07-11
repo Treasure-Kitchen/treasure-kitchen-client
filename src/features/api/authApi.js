@@ -1,47 +1,67 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { BASE_URL } from '../../settings/settings';
+import { USER_AUTH_BASE_URL } from '../../settings/settings';
 
 export const authApi = createApi({ 
     reducerPath: 'authApi',
     baseQuery: fetchBaseQuery({ 
-        baseUrl: `${BASE_URL}/api/users/`,
+        baseUrl: `${USER_AUTH_BASE_URL}/auth`,
         prepareHeaders: (headers, { getState }) => {
-            // const { auth } = getState();
-            // const token = auth?.user?.AccessToken;
-            // headers.set('Authorization', token ? `Bearer ${token}` : '')
-            // return headers
+            const { auth } = getState();
+            const token = auth?.user?.accessToken;
+            headers.set('Authorization', token ? `Bearer ${token}` : '')
+            return headers
         }
     }),
     endpoints: (builder) => ({
-        loginWithGoogle: builder.mutation({
+        login: builder.mutation({
             query: (credential) => ({
-                url: '/',
+                url: '/login',
                 method: 'POST',
                 body: credential
             })
         }),
-        loginWithFacebook: builder.mutation({
-            query: (credential) => ({
-                url: '/',
-                method: 'POST',
-                body: credential
+        logout: builder.mutation({
+            query: () => ({
+                url: '/logout',
+                method: 'POST'
             })
         }),
-        loginWithTwitter: builder.mutation({
-            query: (credential) => ({
-                url: '/',
+        confirmEmail: builder.mutation({
+            query: (data) => ({
+                url: '',
                 method: 'POST',
-                body: credential
+                body: data
             })
         }),
-        getUserWithCookie: builder.query({
-            query: () => 'profile'
+        resetPassword: builder.mutation({
+            query: (data) => ({
+                url: '/reset-password',
+                method: 'PATCH',
+                body: data
+            })
+        }),
+        changeForgottonPassword: builder.mutation({
+            query: (data) => ({
+                url: '/change-password',
+                method: 'PATCH',
+                body: data
+            })
+        }),
+        changePassword: builder.mutation({
+            query: ({id, formData}) => ({
+                url: `/${id}/change-password`,
+                method: 'PATCH',
+                body: formData
+            })
         })
     })
 });
 
 export const {
-    useLoginWithFacebookMutation,
-    useLoginWithGoogleMutation,
-    useLoginWithTwitterMutation
+    useLoginMutation,
+    useLogoutMutation,
+    useConfirmEmailMutation,
+    useChangeForgottonPasswordMutation,
+    useChangePasswordMutation,
+    useResetPasswordMutation
 } = authApi;
