@@ -22,13 +22,13 @@ const ResetUserPassword = () => {
   const [resetPassword, { data, isLoading, isError, error, isSuccess }] = useResetPasswordMutation();
   useEffect(() => {
     if(isError){
-      toast.error(error.data.message)
+      toast.error(error?.data?.message)
     }
   }, [isError, error]);
 
   useEffect(() => {
     if(isSuccess || data){
-      toast.success(data.message);
+      toast.success(data?.message);
       navigate('/', { replace: true });
     }
   }, [isSuccess, data, navigate])
@@ -41,7 +41,9 @@ const ResetUserPassword = () => {
       }
       setValidated(true);
     e.preventDefault();
-    await resetPassword(formData)
+    if(emailAddress){
+      await resetPassword(formData)
+    }
   }
 
   return (

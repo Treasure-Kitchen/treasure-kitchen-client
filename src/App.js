@@ -13,7 +13,8 @@ import ChangeUserForgottenPassword from './features/components/public/verificati
 import ChangeForgottenPassword from './features/components/public/verification/ChangeForgottenPassword';
 import VerifyEmployeeEmail from './features/components/public/verification/VerifyEmployeeEmail';
 import ResetUserPassword from './features/components/public/common/ResetUserPassword';
-import UserProfile from './features/components/private/UserProfile';
+import UserProfile from './features/components/private/user-profile/UserProfile';
+import UpdateName from './features/components/private/user-profile/UpdateName';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           <Route path='reset-password' element={<ChangeForgottenPassword />} />
           <Route path='reset-user-password' element={<ChangeUserForgottenPassword />} />
           <Route path='user-profile' element={<UserProfile />} />
+          <Route path='user-profile/update-name' element={<UpdateName />} />
         </Route>
       </Routes>
     </>

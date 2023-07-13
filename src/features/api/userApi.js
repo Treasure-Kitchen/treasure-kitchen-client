@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../../settings/settings';
 
 export const userApi = createApi({ 
-    reducerPath: 'authApi',
+    reducerPath: 'userApi',
     baseQuery: fetchBaseQuery({ 
         baseUrl: `${BASE_URL}/profile`,
         prepareHeaders: (headers, { getState }) => {
@@ -23,14 +23,13 @@ export const userApi = createApi({
                 url: '/signup',
                 method: 'POST',
                 body: credential
-            }),
-            invalidatesTags: ['UserProfile']
+            })
         }),
         updateName: builder.mutation({
-            query: ({ id, data }) => ({
-                url: `${id}/update-name`,
+            query: ({ id, formData }) => ({
+                url: `/${id}/update-name`,
                 method: 'PATCH',
-                body: data
+                body: formData
             }),
             invalidatesTags: ['UserProfile']
         })
