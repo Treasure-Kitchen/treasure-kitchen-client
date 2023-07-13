@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom';
-import { useResetPasswordMutation } from '../../../api/authApi';
-import { toast } from 'react-toastify';
-import { Button, Card, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row, Spinner, Form } from 'react-bootstrap'
+import { FaRegEdit } from 'react-icons/fa'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { useResetPasswordMutation } from '../../../api/authApi'
+import { toast } from 'react-toastify'
 
-const ResetPassword = () => {
+const ChangeForgottenPassword = () => {
   const navigate = useNavigate();
+  const location = useLocation()
+  const tokenFromRoute = new URLSearchParams(location.search).get('token');
   const [formData, setFormData] = useState({
-    emailAddress: '',
+    password: '',
+    confirmPassword: '',
+    token: tokenFromRoute
   })
+
+  console.log(formData)
   const [validated, setValidated] = useState(false);
-  const { emailAddress } = formData;
+  const { password, confirmPassword, token } = formData;
   const onChange = (e) => {
       setFormData((prevState) => ({
           ...prevState,
@@ -28,7 +35,7 @@ const ResetPassword = () => {
   useEffect(() => {
     if(isSuccess || data){
       toast.success(data.message);
-      navigate('/', { replace: true });
+      navigate('/login', { replace: true });
     }
   }, [isSuccess, data, navigate])
   
@@ -40,8 +47,11 @@ const ResetPassword = () => {
       }
       setValidated(true);
     e.preventDefault();
-    await resetPassword(formData)
+    if(token){
+        await resetPassword(formData)
+    }
   }
+
   return (
     <Container style={{position: 'relative'}} fluid>
       <Row className="App" style={{backgroundImage: 'url(https://res.cloudinary.com/otrprojs/image/upload/v1687569662/page-common-bg_jiy1g2.jpg)'}}>
@@ -64,15 +74,30 @@ const ResetPassword = () => {
                         <Form.Group>
                             <Form.Control 
                                 className="p-2"
-                                type="email"
+                                type="password"
                                 autoComplete="off"
                                 required      
-                                id="emailAddress"
-                                name="emailAddress"
-                                value={emailAddress}
+                                id="password"
+                                name="password"
+                                value={password}
                                 onChange={onChange}
                                 placeholder="example@email.com"/>
-                                <Form.Control.Feedback type="invalid">Email is required!</Form.Control.Feedback>
+                                <Form.Control.Feedback type="invalid">Password is required!</Form.Control.Feedback>
+                        </Form.Group>
+                    </Col>
+                    <Col lg={12} className='mb-2 py-2'>
+                        <Form.Group>
+                            <Form.Control 
+                                className="p-2"
+                                type="password"
+                                autoComplete="off"
+                                required      
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                value={confirmPassword}
+                                onChange={onChange}
+                                placeholder="example@email.com"/>
+                                <Form.Control.Feedback type="invalid">Confirm Password is required!</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
                     <Col lg={12} className="mb-3">
@@ -81,7 +106,7 @@ const ResetPassword = () => {
                     <Col lg={12} className="d-flex justify-content-center align-items-center">
                       { isLoading ? 
                           <Button type="submit" className='loginButton noOutline p-1' style={{background: '#583010'}}><Spinner /></Button> :
-                          <Button type="submit" className='loginButton p-2 noOutline' style={{background: '#583010'}}>Reset Password</Button>
+                          <Button type="submit" className='loginButton p-2 noOutline' style={{background: '#583010'}}><FaRegEdit/> Change Password</Button>
                       }
                     </Col>
                   </Row>
@@ -95,4 +120,4 @@ const ResetPassword = () => {
   )
 }
 
-export default ResetPassword
+export default ChangeForgottenPassword

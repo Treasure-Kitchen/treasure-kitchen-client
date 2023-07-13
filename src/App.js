@@ -6,9 +6,14 @@ import Home from './features/components/public/common/Home';
 import Login from './features/components/public/common/Login';
 import About from './features/components/public/common/About';
 import Contact from './features/components/public/common/Contact';
-import Profile from './features/components/private/Profile';
 import Register from './features/components/public/common/Register';
 import ResetPassword from './features/components/public/common/ResetPassword';
+import VerifyUserEmail from './features/components/public/verification/VerifyUserEmail';
+import ChangeUserForgottenPassword from './features/components/public/verification/ChangeUserForgottenPassword';
+import ChangeForgottenPassword from './features/components/public/verification/ChangeForgottenPassword';
+import VerifyEmployeeEmail from './features/components/public/verification/VerifyEmployeeEmail';
+import ResetUserPassword from './features/components/public/common/ResetUserPassword';
+import UserProfile from './features/components/private/UserProfile';
 
 function App() {
   return (
@@ -20,8 +25,13 @@ function App() {
           <Route path='register' element={<Register />} />
           <Route path='about' element={<About />} />
           <Route path='contact' element={<Contact />} />
-          <Route path='profile' element={<Profile />} />
-          <Route path='reset-password' element={<ResetPassword />} />
+          <Route path='password-reset' element={<ResetPassword />} />
+          <Route path='user-password-reset' element={<ResetUserPassword />} />
+          <Route path='verify-email' element={<VerifyEmployeeEmail />} />
+          <Route path='verify-user-email' element={<VerifyUserEmail />} />
+          <Route path='reset-password' element={<ChangeForgottenPassword />} />
+          <Route path='reset-user-password' element={<ChangeUserForgottenPassword />} />
+          <Route path='user-profile' element={<UserProfile />} />
         </Route>
       </Routes>
     </>

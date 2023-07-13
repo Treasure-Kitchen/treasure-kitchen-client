@@ -28,8 +28,8 @@ export const authApi = createApi({
         }),
         confirmEmail: builder.mutation({
             query: (data) => ({
-                url: '',
-                method: 'POST',
+                url: '/confirm-email',
+                method: 'PATCH',
                 body: data
             })
         }),
