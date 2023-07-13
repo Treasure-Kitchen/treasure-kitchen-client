@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useResetPasswordMutation } from '../../../api/authApi';
 import { toast } from 'react-toastify';
-import { Button, Card, Col, Container, Form, Row, Spinner } from 'react-bootstrap';
+import { Button, Card, Col, Container, Row, Spinner, Form } from 'react-bootstrap';
+import { FaUndo } from 'react-icons/fa';
 
-const ResetPassword = () => {
+const ResetUserPassword = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     emailAddress: '',
@@ -42,6 +43,7 @@ const ResetPassword = () => {
     e.preventDefault();
     await resetPassword(formData)
   }
+
   return (
     <Container style={{position: 'relative'}} fluid>
       <Row className="App" style={{backgroundImage: 'url(https://res.cloudinary.com/otrprojs/image/upload/v1687569662/page-common-bg_jiy1g2.jpg)'}}>
@@ -81,7 +83,7 @@ const ResetPassword = () => {
                     <Col lg={12} className="d-flex justify-content-center align-items-center">
                       { isLoading ? 
                           <Button type="submit" className='loginButton noOutline p-1' style={{background: '#583010'}}><Spinner /></Button> :
-                          <Button type="submit" className='loginButton p-2 noOutline' style={{background: '#583010'}}>Reset Password</Button>
+                          <Button type="submit" className='loginButton p-2 noOutline' style={{background: '#583010'}}><FaUndo/> Reset Password</Button>
                       }
                     </Col>
                   </Row>
@@ -95,4 +97,4 @@ const ResetPassword = () => {
   )
 }
 
-export default ResetPassword
+export default ResetUserPassword

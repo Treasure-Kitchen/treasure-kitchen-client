@@ -4,7 +4,7 @@ import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import { FaGoogle, FaSignInAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../../api/authApi";
 import { toast } from "react-toastify";
 import { setAuth } from "../../../auth/authSlice";
@@ -14,7 +14,8 @@ const Login = () => {
   const google = () => {
     window.open("http://localhost:5500/auth/google", "_self");
   }
-
+  const location = useLocation()
+  const from = location.state?.from?.pathname || '/';
   const navigate = useNavigate();
   const dispatch = useDispatch()
   const [login, { data: user, isLoading, isSuccess, isError, error }] = useLoginMutation();
@@ -34,9 +35,9 @@ const Login = () => {
     if(isSuccess || user){
         toast.success("Login successful");
         dispatch(setAuth(user))
-        navigate(-1);
+        navigate(from, { replace: true });
     }
-}, [user, isError, isSuccess, error, navigate, dispatch]);
+}, [user, isError, isSuccess, error, navigate, dispatch, from]);
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -52,11 +53,13 @@ const Login = () => {
     if (form.checkValidity() === false) {
       e.preventDefault();
       e.stopPropagation();
+    } else {
+      setValidated(true);
+      e.preventDefault();
+      await login(formData)
     }
-    setValidated(true);
-    e.preventDefault();
-    await login(formData)
   };
+
   return (
     <Container style={{position: 'relative'}} fluid>
       <Row className="App" style={{backgroundImage: 'url(https://res.cloudinary.com/otrprojs/image/upload/v1687569662/page-common-bg_jiy1g2.jpg)'}}>
@@ -79,7 +82,7 @@ const Login = () => {
                         <Form.Group>
                             <Form.Control 
                                 className="p-2"
-                                type="emailAddress"
+                                type="email"
                                 autoComplete="off"
                                 required      
                                 id="emailAddress"
@@ -106,7 +109,7 @@ const Login = () => {
                     </Col>
                     <Col lg={12} className="mb-3">
                       <span>No account? <Link to='/register'>Sign up</Link></span><br/>
-                      <span><Link to='/reset-password'>Forgot password?</Link></span>
+                      <span><Link to='/user-password-reset'>Forgot password?</Link></span>
                     </Col>
                     <Col lg={12} className="d-flex justify-content-center align-items-center">
                       { isLoading ? 

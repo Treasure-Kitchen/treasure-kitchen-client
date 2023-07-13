@@ -2,23 +2,43 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../../settings/settings';
 
 export const userApi = createApi({ 
-    reducerPath: 'userApi',
-    baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}/profile`}),
+    reducerPath: 'authApi',
+    baseQuery: fetchBaseQuery({ 
+        baseUrl: `${BASE_URL}/profile`,
+        prepareHeaders: (headers, { getState }) => {
+            const { auth } = getState();
+            const token = auth?.user?.accessToken;
+            headers.set('Authorization', token ? `Bearer ${token}` : '')
+            return headers
+        }
+    }),
+    tagTypes: ['UserProfile'],
     endpoints: (builder) => ({
-        getUserWithCookie: builder.query({
-            query: (userId) => `/${userId}`
+        getProfile: builder.query({
+            query: (id) => `/${id}`,
+            providesTags: ['UserProfile']
         }),
-        ping: builder.mutation({
-            query: (userId) => ({
-                url: `/${userId}`,
+        signUp: builder.mutation({
+            query: (credential) => ({
+                url: '/signup',
                 method: 'POST',
-                body: {}
-            })
+                body: credential
+            }),
+            invalidatesTags: ['UserProfile']
+        }),
+        updateName: builder.mutation({
+            query: ({ id, data }) => ({
+                url: `${id}/update-name`,
+                method: 'PATCH',
+                body: data
+            }),
+            invalidatesTags: ['UserProfile']
         })
     })
 });
 
 export const {
-    useGetUserWithCookieQuery,
-    usePingMutation
+    useSignUpMutation,
+    useUpdateNameMutation,
+    useGetProfileQuery
 } = userApi;

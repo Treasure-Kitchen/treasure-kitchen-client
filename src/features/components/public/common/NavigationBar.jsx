@@ -1,8 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom';
 import '../../../../App.css';
-import {FaUserPlus, FaSignInAlt, FaHome, FaShoppingCart, FaBars, FaCalendar, FaInfoCircle, FaPhoneAlt, FaSignOutAlt } from 'react-icons/fa';
+import {FaUserPlus, FaSignInAlt, FaHome, FaShoppingCart, FaBars, FaCalendar, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../auth/authSlice';
+import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const NavigationBar = () => {
     const navigate = useNavigate();
@@ -56,16 +57,33 @@ const NavigationBar = () => {
                         </li>
                     </ul>
                     <div 
-                        className='d-flex justify-content-center text-white py-1  px-2 rounded-4 flex-lg-row fs-5 align-items-center gap-3'
+                        className='d-flex justify-content-center text-white py-1 px-2 rounded-4 flex-lg-row fs-5 align-items-center gap-3'
                         style={{backgroundColor: '#553d3a'}}
                     >
                         { user ? 
                             <>
-                                <Link onClick={useOnLogOut} className='text-white text-center px-2 text-decoration-none'><FaSignOutAlt /></Link>
+                                <OverlayTrigger placement='left' overlay={
+                                    <Tooltip>Profile</Tooltip>
+                                }>
+                                    <Link to='/user-profile' className='text-white text-center px-2 text-decoration-none'><FaUser /></Link>
+                                </OverlayTrigger> |
+                                <OverlayTrigger placement='bottom' overlay={
+                                    <Tooltip>Logout</Tooltip>
+                                }>
+                                    <Link onClick={useOnLogOut} className='text-white text-center px-2 text-decoration-none'><FaSignOutAlt /></Link>
+                                </OverlayTrigger>
                             </> :
                             <>
-                                <Link to='/login' className='text-white text-center px-2 text-decoration-none'><FaSignInAlt /></Link> |
-                                <Link to='/register' className='text-white text-center px-2 text-decoration-none'><FaUserPlus /></Link>
+                                <OverlayTrigger placement='left' overlay={
+                                    <Tooltip>Login</Tooltip>
+                                }>
+                                    <Link to='/login' className='text-white text-center px-2 text-decoration-none'><FaSignInAlt /></Link>
+                                </OverlayTrigger> |
+                                <OverlayTrigger placement='bottom' overlay={
+                                    <Tooltip>Register</Tooltip>
+                                }>
+                                    <Link to='/register' className='text-white text-center px-2 text-decoration-none'><FaUserPlus /></Link>
+                                </OverlayTrigger> 
                             </>
                         }
                     </div>
