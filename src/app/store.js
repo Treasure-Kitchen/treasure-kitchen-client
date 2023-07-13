@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistReducer, PERSIST } from 'redux-persist';
 import authReducer from '../features/auth/authSlice'
 import { authApi } from '../features/api/authApi';
+import { orderApi } from '../features/api/orderApi';
 
 const persistConfig = {
   key: "root",
@@ -15,6 +16,7 @@ const persistConfig = {
 const reducer = combineReducers({
   [userApi.reducerPath]: userApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
+  [orderApi.reducerPath]: orderApi.reducer,
   auth: authReducer
 });
 
@@ -28,7 +30,7 @@ export const store = configureStore({
         ignoredActions: [PERSIST],
       },
     }).concat(
-        userApi.middleware, authApi.middleware
+        userApi.middleware, authApi.middleware, orderApi.middleware
       )
 });
 

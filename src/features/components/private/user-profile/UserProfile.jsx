@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FaEdit, FaList, FaPlusSquare } from "react-icons/fa";
 import Danger from "../../public/common/toasts/Danger";
+import { useGetUserOrdersQuery } from "../../../api/orderApi";
 
 const UserProfile = () => {
 	const { user } = useSelector((state) => state.auth);
@@ -14,6 +15,10 @@ const UserProfile = () => {
 		isError,
 		isLoading
 	} = useGetProfileQuery(user?.user?.id);
+
+	const qString = `?page=1&perPage=2`;
+	const { data: orders } = useGetUserOrdersQuery(qString);
+	console.log(orders)
 	const registeredOn = new Date(profile?.createdAt).toLocaleDateString();
 	const profilePhoto = profile?.photo ? profile.photo : DUMMY_USER_PHOTO;
 
@@ -89,7 +94,7 @@ const UserProfile = () => {
 								>
 									<span>Orders </span>
 									<span>
-										<Link to="">
+										<Link to="/orders/create">
 											<FaPlusSquare color="#583010" size={20} />
 										</Link>
 									</span>
@@ -100,8 +105,15 @@ const UserProfile = () => {
 									</span>
 								</Card.Header>
 								<ListGroup variant="flush">
-									<ListGroup.Item className="bgColor">Order 1</ListGroup.Item>
-									<ListGroup.Item className="bgColor">Order 2</ListGroup.Item>
+									{ orders?.Data.length > 0 ?
+										<>
+											<ListGroup.Item className="bgColor">Order 1</ListGroup.Item>
+											<ListGroup.Item className="bgColor">Order 2</ListGroup.Item>
+										</> :
+										<>
+											<span className="text-muted text-center text-italic m-auto py-2">You have no order</span>
+										</>
+									}
 								</ListGroup>
 							</Card>
 							<Card

@@ -15,6 +15,7 @@ import VerifyEmployeeEmail from './features/components/public/verification/Verif
 import ResetUserPassword from './features/components/public/common/ResetUserPassword';
 import UserProfile from './features/components/private/user-profile/UserProfile';
 import UpdateName from './features/components/private/user-profile/UpdateName';
+import CreateOrder from './features/components/private/orders/CreateOrder';
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
           <Route path='reset-user-password' element={<ChangeUserForgottenPassword />} />
           <Route path='user-profile' element={<UserProfile />} />
           <Route path='user-profile/update-name' element={<UpdateName />} />
+          <Route path='orders/create' element={<CreateOrder />} />
         </Route>
       </Routes>
     </>
