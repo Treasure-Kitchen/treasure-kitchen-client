@@ -35,7 +35,7 @@ const AddAddress = () => {
     <Container style={{position: 'relative'}} fluid>
       <Row className="App" style={{backgroundImage: `url(${COVER_IMAGE})`}}>
       </Row>
-      <Row className="m-0 p-0" style={{position: 'absolute', top: '50%', left: '0', right: '0'}}>
+      <Row className="m-0 p-0" style={{position: 'absolute', top: '45%', left: '0', right: '0'}}>
         <Col xs={0} sm={1} md={2} lg={3} className="m-0 p-0"></Col>
         <Col xs={12} sm={10} md={8} lg={6} className="d-flex justify-content-center align-items-center">
           <Card
@@ -45,23 +45,22 @@ const AddAddress = () => {
             >
               <Card.Body className="d-flex justify-content-center flex-column align-items-center">
                 <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                  <Row className="mb-3">
-                    <Col lg={12} className='mb-2 py-2'>
+                  <Row className="mb-1">
+                    <Col lg={12} className='mb-1 py-2'>
                         <Form.Group>
                             <Form.Control 
                                 className="p-2"
                                 type="text"
-                                autoComplete="off"
                                 required      
                                 id="line1"
                                 name="line1"
                                 value={line1}
                                 onChange={onChange}
-                                placeholder="1, 123 Street"/>
-                                <Form.Control.Feedback type="invalid">Email is required!</Form.Control.Feedback>
+                                placeholder="Address Line 1"/>
+                                <Form.Control.Feedback type="invalid">Address line 1 is required!</Form.Control.Feedback>
                         </Form.Group>
                     </Col>
-                    <Col lg={12} className='mb-2 py-2'>
+                    <Col lg={12} className='mb-1 py-2'>
                         <Form.Group>
                             <Form.Control 
                                 className="p-2"
@@ -70,12 +69,74 @@ const AddAddress = () => {
                                 name="line2"
                                 value={line2}
                                 onChange={onChange}
-                                required
-                                placeholder="Road 4"/>
-                                <Form.Control.Feedback type="invalid">Password is required!</Form.Control.Feedback>
+                                placeholder="Address Line 2"/>
                         </Form.Group>
                     </Col>
-                    <Row lg={12} className="m-auto">
+                    <Row className="m-0 p-0">
+                      <Col sm={12} md={6} className='mb-1 py-2'>
+                        <Form.Group>
+                          <Form.Control 
+                            type="text"   
+                            id="locality"
+                            name="locality"
+                            value={locality}
+                            onChange={onChange}
+                            required
+                            placeholder='State/Locality'
+                          />
+                          <Form.Control.Feedback type="invalid">State/Locality is required!</Form.Control.Feedback>
+                        </Form.Group>
+                      </Col>
+                      <Col sm={12} md={6} className='mb-1 py-2'>
+                        <Form.Group>
+                          <Form.Control 
+                            type="text"   
+                            id="postalCode"
+                            name="postalCode"
+                            value={postalCode}
+                            onChange={onChange}
+                            required
+                            placeholder='Postal Code'
+                          />
+                          <Form.Control.Feedback type="invalid">Postal code is required!</Form.Control.Feedback>
+                        </Form.Group>
+                      </Col>
+                    </Row>
+                    <Row className='m-0 p-0 mb-1'>
+                      <Form.Group as={Col} sm={12} md={6} className='mb-1'>
+                        <Form.Label className='px-1'>Select Country</Form.Label>
+                        <Form.Select
+                            required
+                            id="country"
+                            name="country"
+                            value={country}
+                            onChange={onChange}
+                          >
+                            <option></option>
+                            { [{id: 1, name: 'Azerbaijan'}, {id: 2, name: 'Canada'}, {id: 3, name: 'Nigeria'}, {id: 4, name: 'USA'}].map(country => (
+                                <option key={country?.id} value={country?.name}>{country?.name}</option>
+                            ))}
+                        </Form.Select>
+                        <Form.Control.Feedback type="invalid">Country is required!</Form.Control.Feedback>
+                      </Form.Group>
+                      <Form.Group as={Col} sm={12} md={6} className='mb-1'>
+                        <Form.Label className='px-1'>Select State</Form.Label>
+                        <Form.Select
+                            required
+                            id="adminArea"
+                            name="adminArea"
+                            value={adminArea}
+                            onChange={onChange}
+                          >
+                            <option></option>
+                            { [{id: 1, name: 'Abia'}, {id: 2, name: 'Federal Capital Territory'}, {id: 3, name: 'Kwara'}, {id: 4, name: 'Lagos'}].map(state => (
+                                <option key={state?.id} value={state?.name}>{state?.name}</option>
+                            ))}
+                        </Form.Select>
+                        <Form.Control.Feedback type="invalid">State is required!</Form.Control.Feedback>
+                      </Form.Group>
+                    </Row>
+                    <Row lg={12} className="m-auto m-0 p-0">
                         <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-2">
                             <Button type="submit" className='loginButton noOutline w-100 p-2 btn-secondary' onClick={goBack} disabled={false}>Back</Button>
                         </Col>
