@@ -6,6 +6,7 @@ import { persistReducer, PERSIST } from 'redux-persist';
 import authReducer from '../features/auth/authSlice'
 import { authApi } from '../features/api/authApi';
 import { orderApi } from '../features/api/orderApi';
+import { dishApi } from '../features/api/dishApi';
 
 const persistConfig = {
   key: "root",
@@ -17,6 +18,7 @@ const reducer = combineReducers({
   [userApi.reducerPath]: userApi.reducer,
   [authApi.reducerPath]: authApi.reducer,
   [orderApi.reducerPath]: orderApi.reducer,
+  [dishApi.reducerPath]: dishApi.reducer,
   auth: authReducer
 });
 
@@ -30,7 +32,8 @@ export const store = configureStore({
         ignoredActions: [PERSIST],
       },
     }).concat(
-        userApi.middleware, authApi.middleware, orderApi.middleware
+        userApi.middleware, authApi.middleware, orderApi.middleware,
+        dishApi.middleware
       )
 });
 

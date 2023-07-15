@@ -1,10 +1,10 @@
 import React from "react";
 import { Card, Col, Container, Image, ListGroup, Row, Spinner } from "react-bootstrap";
-import { DUMMY_USER_PHOTO } from "../../../../settings/settings";
+import { COVER_IMAGE, DUMMY_USER_PHOTO } from "../../../../settings/settings";
 import { useGetProfileQuery } from "../../../api/userApi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { FaEdit, FaList, FaPlusSquare } from "react-icons/fa";
+import { FaEdit, FaList, FaMapMarkerAlt, FaPlusSquare } from "react-icons/fa";
 import Danger from "../../public/common/toasts/Danger";
 import { useGetUserOrdersQuery } from "../../../api/orderApi";
 
@@ -19,7 +19,6 @@ const UserProfile = () => {
 	const qString = `?page=1&perPage=2`;
 	const { data: orders } = useGetUserOrdersQuery(qString);
 	console.log(orders)
-	const registeredOn = new Date(profile?.createdAt).toLocaleDateString();
 	const profilePhoto = profile?.photo ? profile.photo : DUMMY_USER_PHOTO;
 
 	return (
@@ -28,7 +27,7 @@ const UserProfile = () => {
 				className="App"
 				style={{
 					backgroundImage:
-						"url(https://res.cloudinary.com/otrprojs/image/upload/v1687569662/page-common-bg_jiy1g2.jpg)",
+						`url(${COVER_IMAGE})`,
 				}}
 			></Row>
 			<Row
@@ -76,8 +75,16 @@ const UserProfile = () => {
 										<span className="text-muted">{profile?.email}</span>
 									</ListGroup.Item>
 									<ListGroup.Item className="bgColor">
-										<span className="fw-bold">Registered:</span>{" "}
-										<span className="text-muted">{registeredOn}</span>
+										<span className="fw-bold"><FaMapMarkerAlt /></span>{" "}
+										{ profile?.address ?
+											<>
+												<span className="text-muted">Lagos. Nigeria.</span>
+												<Link to={`/address/${profile?.address?._id}/edit`} style={{float: 'right'}}>
+													<FaEdit color="#583010" size={20} />
+												</Link>
+											</> : 
+											<Link to='/address/add' style={{ float: 'right' }}>Add Address</Link>
+										}
 									</ListGroup.Item>
 								</ListGroup>
 							</Card>

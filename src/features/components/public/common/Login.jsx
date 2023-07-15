@@ -8,6 +8,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../../api/authApi";
 import { toast } from "react-toastify";
 import { setAuth } from "../../../auth/authSlice";
+import { COVER_IMAGE } from "../../../../settings/settings";
 
 const Login = () => {
   //const userId = document.cookie.replace(/(?:(?:^|.*;\s*)profile\s*\=\s*([^;]*).*$)|^.*$/, "$1");
@@ -62,7 +63,7 @@ const Login = () => {
 
   return (
     <Container style={{position: 'relative'}} fluid>
-      <Row className="App" style={{backgroundImage: 'url(https://res.cloudinary.com/otrprojs/image/upload/v1687569662/page-common-bg_jiy1g2.jpg)'}}>
+      <Row className="App" style={{backgroundImage: `url(${COVER_IMAGE})`}}>
         <Row className="color-overlay d-flex justify-content-center align-items-center">
           <h1 className="AppHeading text-center">Login</h1>
         </Row>

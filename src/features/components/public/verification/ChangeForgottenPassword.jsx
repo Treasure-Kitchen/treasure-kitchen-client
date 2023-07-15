@@ -4,6 +4,7 @@ import { FaRegEdit } from 'react-icons/fa'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useResetPasswordMutation } from '../../../api/authApi'
 import { toast } from 'react-toastify'
+import { COVER_IMAGE } from '../../../../settings/settings'
 
 const ChangeForgottenPassword = () => {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ const ChangeForgottenPassword = () => {
 
   return (
     <Container style={{position: 'relative'}} fluid>
-      <Row className="App" style={{backgroundImage: 'url(https://res.cloudinary.com/otrprojs/image/upload/v1687569662/page-common-bg_jiy1g2.jpg)'}}>
+      <Row className="App" style={{backgroundImage: `url(${COVER_IMAGE})`}}>
         <Row className="color-overlay d-flex justify-content-center align-items-center">
           <h1 className="AppHeading text-center">Reset Password</h1>
         </Row>

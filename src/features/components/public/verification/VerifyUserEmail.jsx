@@ -4,6 +4,7 @@ import Success from '../common/toasts/Success'
 import { Link, useLocation } from 'react-router-dom'
 import { useConfirmEmailMutation } from '../../../api/authApi'
 import Danger from '../common/toasts/Danger'
+import { COVER_IMAGE } from '../../../../settings/settings'
 
 const VerifyUserEmail = () => {
   const location = useLocation();
@@ -32,7 +33,7 @@ const VerifyUserEmail = () => {
 
   return (
     <Container style={{position: 'relative'}} fluid>
-      <Row className="App" style={{backgroundImage: 'url(https://res.cloudinary.com/otrprojs/image/upload/v1687569662/page-common-bg_jiy1g2.jpg)'}}>
+      <Row className="App" style={{backgroundImage: `url(${COVER_IMAGE})`}}>
         <Row className="color-overlay d-flex justify-content-center align-items-center">
           
         </Row>
