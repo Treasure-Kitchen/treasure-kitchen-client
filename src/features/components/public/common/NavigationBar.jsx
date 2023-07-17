@@ -1,18 +1,20 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import '../../../../App.css';
 import {FaUserPlus, FaSignInAlt, FaHome, FaShoppingCart, FaBars, FaCalendar, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../auth/authSlice';
-import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const NavigationBar = () => {
     const navigate = useNavigate();
-    const { user } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-
-    const useOnLogOut = async() => {
+    const user = useSelector((state) => state.auth.user);
+    const onLogout = () => {
         dispatch(logout());
         navigate('/', { replace: true });
+        if(!user){
+            <Navigate to='/' />
+        }
     }
 
   return (
@@ -70,7 +72,7 @@ const NavigationBar = () => {
                                 <OverlayTrigger placement='bottom' overlay={
                                     <Tooltip>Logout</Tooltip>
                                 }>
-                                    <Link onClick={useOnLogOut} className='text-white text-center px-2 text-decoration-none'><FaSignOutAlt /></Link>
+                                    <Button onClick={onLogout} className='DeLink text-white text-center px-2 text-decoration-none'><FaSignOutAlt /></Button>
                                 </OverlayTrigger>
                             </> :
                             <>

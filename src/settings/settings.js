@@ -16,3 +16,19 @@ export const MULTI_SELECT_STYLE = {
       color: "#583010",
     }
 };
+
+export const COUNTRIES = [
+  {id: 1, name: 'Azerbaijan'}, 
+  {id: 2, name: 'Canada'}, 
+  {id: 3, name: 'Nigeria'}, 
+  {id: 4, name: 'United States of America'}
+]
+
+export const STATES = [
+  {id: 1, name: 'Abia'}, 
+  {id: 2, name: 'Bayelsa'}, 
+  {id: 3, name: 'Kwara'}, 
+  {id: 4, name: 'Kaduna'},
+  {id: 5, name: 'Lagos'},
+  {id:6, name: 'Federal Capital Territory'}
+]

@@ -24,7 +24,6 @@ const Register = () => {
     password: '',
     confirmPassword: ''
   })
-console.log(error)
   const { name, emailAddress, password, confirmPassword } = formData;
 
   useEffect(() => {

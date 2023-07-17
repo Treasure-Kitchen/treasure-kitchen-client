@@ -28,11 +28,11 @@ export const orderApi = createApi({
         }),
         getUserOrders: builder.query({
             query: (queryString) => `/user/${queryString}`,
-            invalidatesTags: ['Order']
+            providesTags: ['Order']
         }),
         getOrderbyId: builder.query({
             query: (id) => `/${id}`,
-            invalidatesTags: ['Order']
+            providesTags: ['Order']
         }),
         updateOrder: builder.mutation({
             query: ({ id, formData }) => ({

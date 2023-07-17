@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Container, Form, Row, Spinner } from 'react-bootstrap'
-import { COVER_IMAGE } from '../../../../settings/settings'
+import { COUNTRIES, COVER_IMAGE, STATES } from '../../../../settings/settings'
 import { useNavigate } from 'react-router-dom'
+import { useAddAddressMutation } from '../../../api/userApi'
+import { toast } from 'react-toastify'
 
 const AddAddress = () => {
   const navigate = useNavigate()
@@ -22,13 +24,37 @@ const AddAddress = () => {
     }))
   };
 
+  const [addAddress, { data, isError, error, isLoading, isSuccess}] = useAddAddressMutation();
+
+  useEffect(() => {
+    if(isError){
+      toast.error(error?.data?.message);
+    }
+  }, [isError, error]);
+
+  useEffect(() => {
+    if(isSuccess || data){
+      toast.success(data?.message);
+      navigate(-1, { replace: true });
+    }
+  })
+
   const goBack = () => {
     navigate(-1, { replace: true });
   }
 
   const [validated, setValidated] = useState(false);
-  const handleSubmit = (e) => {
-
+  const handleSubmit = async (e) => {
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    setValidated(true);
+    e.preventDefault();
+    if(line1 && locality && postalCode && adminArea && country){
+        await addAddress(formData);
+    }
   }
 
   return (
@@ -113,7 +139,7 @@ const AddAddress = () => {
                             onChange={onChange}
                           >
                             <option></option>
-                            { [{id: 1, name: 'Azerbaijan'}, {id: 2, name: 'Canada'}, {id: 3, name: 'Nigeria'}, {id: 4, name: 'USA'}].map(country => (
+                            { COUNTRIES && COUNTRIES.map(country => (
                                 <option key={country?.id} value={country?.name}>{country?.name}</option>
                             ))}
                         </Form.Select>
@@ -129,7 +155,7 @@ const AddAddress = () => {
                             onChange={onChange}
                           >
                             <option></option>
-                            { [{id: 1, name: 'Abia'}, {id: 2, name: 'Federal Capital Territory'}, {id: 3, name: 'Kwara'}, {id: 4, name: 'Lagos'}].map(state => (
+                            { STATES && STATES.map(state => (
                                 <option key={state?.id} value={state?.name}>{state?.name}</option>
                             ))}
                         </Form.Select>
@@ -138,10 +164,10 @@ const AddAddress = () => {
                     </Row>
                     <Row lg={12} className="m-auto m-0 p-0">
                         <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-2">
-                            <Button type="submit" className='loginButton noOutline w-100 p-2 btn-secondary' onClick={goBack} disabled={false}>Back</Button>
+                            <Button type="submit" className='loginButton noOutline w-100 p-2 btn-secondary' onClick={goBack} disabled={isLoading}>Back</Button>
                         </Col>
                         <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-2">
-                            { false ? 
+                            { isLoading ? 
                                 <Button type="submit" className='loginButton w-100 noOutline p-1' style={{background: '#583010'}}><Spinner /></Button> :
                                 <Button type="submit" className='loginButton w-100 p-2 noOutline' style={{background: '#583010'}}>Save</Button>
                             }
