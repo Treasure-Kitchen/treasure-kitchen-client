@@ -1,11 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Bungee+Inline&family=Fredericka+the+Great&family=Herr+Von+Muellerhoff&family=Kristi&family=Qwigley&family=Rubik+Moonrocks&family=Rye&family=Yesteryear&display=swap');
+
+:root {
+  --shadowBlact: #1B1610;
+  --ebony: #080402;
+  --stainlessSteel: #CFD4D9;
+  --smokyBlack: #100C08;
+  --Licorice: #1A1110;
+  --coolBlack: #151922;
+  --midNight: #040406;
+}
+
 .App {
-  margin: 0;
-  padding: 0;
+  background-color: var(--stainlessSteel);
   background-size: cover;
   min-height: 100vh;
   position: relative;
-  color: wheat;
+  color: var(--shadowBlact);
   text-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+}
+
+.NavigationBar {
+  margin: 0;
+  padding: 0;
+  background-color: var(--midNight) !important;
+  color: var(--stainlessSteel);
+  min-height: 10vh;
 }
 
 .PaddingTop {
@@ -21,6 +40,11 @@
   width: 100%;
   height: 100%;
   background-color: rgba((0), 0, 0, .2);
+}
+
+.imageOverlay {
+  background-size: cover;
+  min-height: 90vh;
 }
 
 .BoxShadow {
@@ -72,7 +96,31 @@
     min-height: 100vh;
   }
 
-  .AppHeading {
+.AppHeading {
     font-size: calc(1.525rem + 3.3vw);
+  }
+}
+
+.FedericaFont {
+  font-family: 'Fredericka the Great', sans-serif;
+}
+
+.Heading {
+  font-family: 'Bungee Inline', sans-serif;
+  text-align: center;
+  font-size: 7vw;
+  color: var(--coolBlack);
+  padding: 2rem 0;
+}
+
+@media(max-width: 767px){
+  .Heading {
+      font-size: 12vw;
+  }
+}
+
+@media (max-width: 576px){
+  .Heading {
+      font-size: 12vw;
   }
 }

@@ -1,4 +1,4 @@
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../../../../App.css';
 import {FaUserPlus, FaSignInAlt, FaHome, FaShoppingCart, FaBars, FaCalendar, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,20 +12,17 @@ const NavigationBar = () => {
     const onLogout = () => {
         dispatch(logout());
         navigate('/', { replace: true });
-        if(!user){
-            <Navigate to='/' />
-        }
     }
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-transparent fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-dark fixed-top NavigationBar">
         <div className="container">
             <Link className="navbar-brand fs-4" to="/">Treasure Kitchen</Link>
             <button className="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
             {/* Sidebar */}
-            <div className="offcanvas offcanvas-start" style={{background: 'rgba(245, 222, 179, 0.15)', backdropFilter: 'blur(10px)'}} tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div className="offcanvas offcanvas-start" style={{background: 'rgba(27, 22, 16, 0.15)', backdropFilter: 'blur(10px)'}} tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div className="offcanvas-header text-white border-bottom">
                     <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Treasure Kitchen</h5>
                     <button type="button" className="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -60,31 +57,31 @@ const NavigationBar = () => {
                     </ul>
                     <div 
                         className='d-flex justify-content-center text-white py-1 px-2 rounded-4 flex-lg-row fs-5 align-items-center gap-3'
-                        style={{backgroundColor: '#553d3a'}}
+                        style={{backgroundColor: '#CFD4D9'}}
                     >
                         { user ? 
                             <>
                                 <OverlayTrigger placement='left' overlay={
                                     <Tooltip>Profile</Tooltip>
                                 }>
-                                    <Link to='/user-profile' className='text-white text-center px-2 text-decoration-none'><FaUser /></Link>
+                                    <Link to='/user-profile' className='text-white text-center px-2 text-decoration-none'><FaUser color='#040406'/></Link>
                                 </OverlayTrigger> |
                                 <OverlayTrigger placement='bottom' overlay={
                                     <Tooltip>Logout</Tooltip>
                                 }>
-                                    <Button onClick={onLogout} className='DeLink text-white text-center px-2 text-decoration-none'><FaSignOutAlt /></Button>
+                                    <Button onClick={onLogout} className='DeLink text-center px-2 text-decoration-none'><FaSignOutAlt color='#040406'/></Button>
                                 </OverlayTrigger>
                             </> :
                             <>
                                 <OverlayTrigger placement='left' overlay={
                                     <Tooltip>Login</Tooltip>
                                 }>
-                                    <Link to='/login' className='text-white text-center px-2 text-decoration-none'><FaSignInAlt /></Link>
-                                </OverlayTrigger> |
+                                    <Link to='/login' className='text-white text-center px-2 text-decoration-none'><FaSignInAlt color='#040406'/></Link>
+                                </OverlayTrigger> <span style={{color: '#040406'}}>|</span>
                                 <OverlayTrigger placement='bottom' overlay={
                                     <Tooltip>Register</Tooltip>
                                 }>
-                                    <Link to='/register' className='text-white text-center px-2 text-decoration-none'><FaUserPlus /></Link>
+                                    <Link to='/register' className='text-white text-center px-2 text-decoration-none'><FaUserPlus color='#040406'/></Link>
                                 </OverlayTrigger> 
                             </>
                         }

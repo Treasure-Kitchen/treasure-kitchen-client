@@ -18,10 +18,12 @@ import UpdateName from './features/components/private/user-profile/UpdateName';
 import CreateOrder from './features/components/private/orders/CreateOrder';
 import AddAddress from './features/components/private/address/AddAddress';
 import UpdateAddress from './features/components/private/address/UpdateAddress';
+import NavigationBar from './features/components/public/common/NavigationBar';
 
 function App() {
   return (
     <>
+      <NavigationBar />
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route path='/' element={<Home />} />
