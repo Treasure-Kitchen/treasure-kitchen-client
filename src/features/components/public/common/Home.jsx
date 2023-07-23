@@ -1,6 +1,8 @@
-import { Button, Card, Col, Container, Image, Row } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import { COVER_IMAGE } from "../../../../settings/settings";
 import Danger from './toasts/Danger';
+import { Link } from "react-router-dom";
+import MainCover from "./MainCover";
 
 const Home = () => {
   const menus = [
@@ -86,48 +88,34 @@ const Home = () => {
   return (
     <Container fluid className="m-0 p-0" >
       <Row className="m-0 p-0">
-          <Row className="m-0" style={{minHeight: '35vh'}}>
-            <Col sm={12} md={6} lg={5}>
-              <h1 className="mt-3 p-0 d-flex justify-content-center align-items-center rounded-3">
-                <Image 
-                  src={`${COVER_IMAGE}`} 
-                  rounded
-                  fluid
-                />
-              </h1>
-            </Col>
-            <Col sm={12} md={6} lg={7}>
-              <Row className="p-0 m-0 d-flex justify-content-center align-items-center">
-                <h1 className="Heading text-center p-0 m-0">Eat Good, Feel<span className="TreasureText"> Treasured.</span></h1>
-              </Row>
-            </Col>
-          </Row>
+          <MainCover />
           <Row className="mt-3 mb-5 m-auto">
-            <h1 className="FedericaFont fw-2 text-center mb-5">Menu</h1>
-            <Col sm={0} md={1} lg={2}></Col>
-            <Col sm={12} md={10} lg={8}>
-              <Row xs={1} md={2} className="g-3 d-flex justify-content-center align-items-center">
-                {menus.length > 0 ?
-                  menus.map(menu => (
-                    menu.dishes.length > 0 ?
-                    <Col key={menu.id}>
-                      <Card className="text-center">
-                        <Card.Img src={menu.dishes[0].url}/>
-                        <Card.ImgOverlay>
-                          <Card.Title>{menu.name}</Card.Title>
-                          <Card.Body className="m-auto" style={{margin: 'auto'}}>
-                            <Button variant="primary" className="m-auto">Shop now</Button>
-                          </Card.Body>
-                        </Card.ImgOverlay>
-                      </Card>
-                    </Col> :
-                    <></>
-                  )) :
-                  <Danger message={'No menu item to display at the moment. Please check back again later.'}/>
-                }
-              </Row>
-            </Col>
-            <Col sm={0} md={1} lg={2}></Col>
+            <h1 className="FedericaFont fw-2 mb-0">Treasure Menu</h1>
+            <span className="UnderLine"></span>
+            <Row className="m-auto">
+              <Col sm={0} md={1} lg={2}></Col>
+              <Col sm={12} md={10} lg={8}>
+                <Row xs={1} md={2} className="g-3 d-flex justify-content-center align-items-center">
+                  {menus.length > 0 ?
+                    menus.map(menu => (
+                      menu.dishes.length > 0 ?
+                      <Col key={menu.id}>
+                        <Card className="text-center">
+                          <Card.Img src={menu.dishes[0].url}/>
+                          <Card.ImgOverlay className='d-flex justify-content-center flex-column align-items-center'>
+                            <Card.Title className="MenuName">{menu.name}</Card.Title>
+                            <Link to={`/menus/${menu?.id}`} className="m-auto LinkToButton">Shop now</Link>
+                          </Card.ImgOverlay>
+                        </Card>
+                      </Col> :
+                      <></>
+                    )) :
+                    <Danger message={'No menu item to display at the moment. Please check back again later.'}/>
+                  }
+                </Row>
+              </Col>
+              <Col sm={0} md={1} lg={2}></Col>
+            </Row>
           </Row>
       </Row>
     </Container>

@@ -19,6 +19,7 @@ import CreateOrder from './features/components/private/orders/CreateOrder';
 import AddAddress from './features/components/private/address/AddAddress';
 import UpdateAddress from './features/components/private/address/UpdateAddress';
 import NavigationBar from './features/components/public/common/NavigationBar';
+import MenuList from './features/components/public/menu/MenuList';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
           <Route path='orders/create' element={<CreateOrder />} />
           <Route path='address/add' element={<AddAddress />} />
           <Route path='address/:id/edit' element={<UpdateAddress />} />
+          <Route path='menus/:id' element={<MenuList />} />
         </Route>
       </Routes>
     </>
