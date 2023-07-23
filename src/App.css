@@ -1,29 +1,55 @@
-@import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Bungee+Inline&family=Fredericka+the+Great&family=Herr+Von+Muellerhoff&family=Kristi&family=Qwigley&family=Rubik+Moonrocks&family=Rye&family=Yesteryear&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Bungee+Inline&family=Fredericka+the+Great&family=Herr+Von+Muellerhoff&family=Kristi&family=Qwigley&family=Rubik+Moonrocks&family=Rye&family=Yesteryear&Akronim&family=Big+Shoulders+Inline+Text:wght@100&family=Codystar:wght@300&family=Fascinate+Inline&family=Londrina+Outline&family=Molle&family=Monofett&family=Piedra&family=Press+Start+2P&family=Raleway+Dots&family=Rubik+Gemstones&family=Rubik+Storm&family=Vast+Shadow&display=swap');
 
 :root {
-  --shadowBlact: #1B1610;
+  --shadowBlack: #1B1610;
   --ebony: #080402;
   --stainlessSteel: #CFD4D9;
   --smokyBlack: #100C08;
   --Licorice: #1A1110;
   --coolBlack: #151922;
   --midNight: #040406;
+  --lightBrownish: #CB997E;
+  --lighterBrownish: #DDBEA9;
+  --treasureColor: #49321C;
+  --boxShadow: 0.5rem 1rem rgba(0, 0, 0, .7);
+}
+
+.Logo {
+  background: var(--midNight);
+  padding: .4rem;
+  font-size: larger;
+  border-radius: 1rem;
+  border: 0.1rem solid var(--treasureColor);
+  margin: auto;
+}
+.Treasure {
+  font-family: 'Bowlby One SC', sans-serif;
+  color: var(--stainlessSteel);
+}
+
+.Kitchen {
+  font-family: 'Herr Von Muellerhoff', sans-serif;
+  font-size: 2rem;
+  color: var(--lighterBrownish);
 }
 
 .App {
-  background-color: var(--stainlessSteel);
+  background-color: var(--lighterBrownish);
   background-size: cover;
   min-height: 100vh;
-  position: relative;
-  color: var(--shadowBlact);
+  color: var(--shadowBlack);
   text-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+}
+
+.TreasureText {
+  color: var(--treasureColor);
 }
 
 .NavigationBar {
   margin: 0;
   padding: 0;
-  background-color: var(--midNight) !important;
-  color: var(--stainlessSteel);
+  background-color: var(--shadowBlack) !important;
+  color: var(--lighterBrownish) !important;
   min-height: 10vh;
 }
 
@@ -109,7 +135,7 @@
   font-family: 'Bungee Inline', sans-serif;
   text-align: center;
   font-size: 7vw;
-  color: var(--coolBlack);
+  color: var(--shadowBlack);
   padding: 2rem 0;
 }
 

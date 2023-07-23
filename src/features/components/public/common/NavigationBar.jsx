@@ -4,6 +4,7 @@ import {FaUserPlus, FaSignInAlt, FaHome, FaShoppingCart, FaBars, FaCalendar, FaI
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../auth/authSlice';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import Logo from './Logo';
 
 const NavigationBar = () => {
     const navigate = useNavigate();
@@ -17,14 +18,18 @@ const NavigationBar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark fixed-top NavigationBar">
         <div className="container">
-            <Link className="navbar-brand fs-4" to="/">Treasure Kitchen</Link>
+            <Link className="navbar-brand fs-4" to="/">
+                <Logo />
+            </Link>
             <button className="navbar-toggler shadow-none border-0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
             {/* Sidebar */}
             <div className="offcanvas offcanvas-start" style={{background: 'rgba(27, 22, 16, 0.15)', backdropFilter: 'blur(10px)'}} tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div className="offcanvas-header text-white border-bottom">
-                    <h5 className="offcanvas-title" id="offcanvasNavbarLabel">Treasure Kitchen</h5>
+                    <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
+                        <Logo />
+                    </h5>
                     <button type="button" className="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div className="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
