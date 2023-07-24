@@ -17,6 +17,11 @@ export const MULTI_SELECT_STYLE = {
     }
 };
 
+export const colors = {
+  Gold: '#FFD700',
+  Grey: '#808080'
+}
+
 export const COUNTRIES = [
   {id: 1, name: 'Azerbaijan'}, 
   {id: 2, name: 'Canada'}, 
@@ -32,3 +37,10 @@ export const STATES = [
   {id: 5, name: 'Lagos'},
   {id:6, name: 'Federal Capital Territory'}
 ]
+
+export const currencies = {
+  Naira: 'NGN',
+  Dollars: 'USD',
+  Euro: 'EUR',
+  Pound: 'BPD'
+}

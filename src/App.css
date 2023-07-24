@@ -11,7 +11,7 @@
   --lightBrownish: #CB997E;
   --lighterBrownish: #DDBEA9;
   --treasureColor: #49321C;
-  --boxShadow: 0.5rem 1rem rgba(0, 0, 0, .7);
+  --boxShadow: 0.1rem 0.3rem rgba(0, 0, 0, .1);
 }
 
 .Logo {
@@ -21,6 +21,14 @@
   border-radius: 1rem;
   border: 0.1rem solid var(--treasureColor);
   margin: auto;
+}
+
+.FloatRight {
+  float: right;
+}
+
+.Cursored {
+  cursor: pointer;
 }
 
 .Treasure {
@@ -75,6 +83,20 @@
   padding: .7rem 1rem;
   font-weight: bold;
   border-radius: .3rem;
+}
+
+.ButtonToLink {
+  background: transparent !important;
+  outline: none !important;
+  color: blue !important;
+  text-decoration: underline !important;
+  border: none !important;
+  padding: 0 5px !important;
+  margin: 0 !important;
+}
+
+.MinHeightthOne {
+  min-height: 3rem;
 }
 
 .UnderLine {

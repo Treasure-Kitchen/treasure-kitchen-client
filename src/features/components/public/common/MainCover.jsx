@@ -2,9 +2,9 @@ import React from 'react'
 import { Col, Image, Row } from 'react-bootstrap'
 import { COVER_IMAGE } from '../../../../settings/settings'
 
-const MainCover = () => {
+const MainCover = ({ minHeight }) => {
   return (
-    <Row className="m-0 mt-3" style={{minHeight: '35vh'}}>
+    <Row className="m-0 mt-5" style={{minHeight: minHeight}}>
         <Col sm={12} md={6} lg={5}>
             <h1 className="mt-3 p-0 d-flex justify-content-center align-items-center rounded-3">
             <Image 

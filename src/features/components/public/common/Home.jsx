@@ -1,11 +1,11 @@
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Carousel, Col, Container, Image, Row, Spinner } from "react-bootstrap";
 import { COVER_IMAGE } from "../../../../settings/settings";
 import Danger from './toasts/Danger';
 import { Link } from "react-router-dom";
 import MainCover from "./MainCover";
 
 const Home = () => {
-  const menus = [
+  const data = [
     {
       name: 'Africana',
       id: 1,
@@ -83,39 +83,54 @@ const Home = () => {
       id: 4,
       dishes: []
     }
-  ]
+  ];
+
+  const menus = data.filter((menu) => {
+    return menu.dishes.length > 0;
+  });
 
   return (
     <Container fluid className="m-0 p-0" >
       <Row className="m-0 p-0">
           <MainCover />
           <Row className="mt-3 mb-5 m-auto">
-            <h1 className="FedericaFont fw-2 mb-0">Treasure Menu</h1>
+            <h1 className="FedericaFont fw-2 mb-0">Treasure Menus</h1>
             <span className="UnderLine"></span>
-            <Row className="m-auto">
-              <Col sm={0} md={1} lg={2}></Col>
-              <Col sm={12} md={10} lg={8}>
-                <Row xs={1} md={2} className="g-3 d-flex justify-content-center align-items-center">
-                  {menus.length > 0 ?
-                    menus.map(menu => (
-                      menu.dishes.length > 0 ?
-                      <Col key={menu.id}>
-                        <Card className="text-center">
-                          <Card.Img src={menu.dishes[0].url}/>
-                          <Card.ImgOverlay className='d-flex justify-content-center flex-column align-items-center'>
-                            <Card.Title className="MenuName">{menu.name}</Card.Title>
-                            <Link to={`/menus/${menu?.id}`} className="m-auto LinkToButton">Shop now</Link>
-                          </Card.ImgOverlay>
-                        </Card>
-                      </Col> :
-                      <></>
-                    )) :
+            {
+              false ?
+              <Spinner className="m-auto" /> :
+              <>
+                <Col sm={0} md={2} lg={3}></Col>
+                <Col sm={12} md={8} lg={6} className="d-flex align-items-center justify-content-center">
+                  {
+                    menus.length > 0 ?
+                    <Carousel fade>
+                      {
+                        menus && menus.map(menu => (
+                          menu?.dishes.length > 0 ?
+                          <Carousel.Item>
+                            <Image 
+                                src={menu?.dishes[0]?.url} 
+                                rounded
+                                fluid
+                                className="w-100"
+                                alt={menu?.name}
+                            />
+                            <Carousel.Caption>
+                                <h3 className="MenuName">{menu?.name}</h3>
+                                <Link to={`/menus/${menu?.id}`} className="m-auto LinkToButton mb-2">Shop now</Link>
+                            </Carousel.Caption>
+                          </Carousel.Item> :
+                          <></>
+                        ))
+                      }
+                    </Carousel> :
                     <Danger message={'No menu item to display at the moment. Please check back again later.'}/>
                   }
-                </Row>
-              </Col>
-              <Col sm={0} md={1} lg={2}></Col>
-            </Row>
+                </Col>
+                <Col sm={0} md={2} lg={6}></Col>
+              </>
+            }
           </Row>
       </Row>
     </Container>

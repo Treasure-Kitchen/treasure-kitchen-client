@@ -1,7 +1,8 @@
 import React from 'react'
-import { Card, Col, Container, Row, Spinner } from 'react-bootstrap'
+import { Container, Row, Spinner } from 'react-bootstrap'
 import MainCover from '../common/MainCover'
 import { COVER_IMAGE } from '../../../../settings/settings'
+import TopImageCard from '../common/cards/TopImageCard'
 
 const MenuList = () => {
     const menu = {
@@ -9,21 +10,38 @@ const MenuList = () => {
         id: 1,
         dishes: [
           {
+            _id: 1,
             name: 'Party Jollof',
             url: COVER_IMAGE,
-            description: 'Jollof Rice',
+            description: 'I am party rider',
             price: 1450.00
           },
           {
-            name: 'Party Jollof',
+            _id: 2,
+            name: 'Fried Rice',
             url: COVER_IMAGE,
-            description: 'Jollof Rice',
+            description: 'It will return a substring containing the first 250 characters of item.description (or the whole string if its shorter than 250 chars',
             price: 1450.00
           },
           {
-            name: 'Party Jollof',
+            _id: 3,
+            name: 'Ghana Jollof',
             url: COVER_IMAGE,
-            description: 'Jollof Rice',
+            description: 'It will return a substring containing the first 250 characters of item.description (or the whole string if its shorter than 250 chars',
+            price: 1450.00
+          },
+          {
+            _id: 4,
+            name: 'White Rice',
+            url: COVER_IMAGE,
+            description: 'It will return a substring containing the first 250 characters of item.description (or the whole string if its shorter than 250 chars',
+            price: 1450.00
+          },
+          {
+            _id: 5,
+            name: 'Coconut Rice',
+            url: COVER_IMAGE,
+            description: 'It will return a substring containing the first 250 characters of item.description (or the whole string if its shorter than 250 chars',
             price: 1450.00
           }
         ]
@@ -40,19 +58,14 @@ const MenuList = () => {
                 <>
                     <h1 className="FedericaFont fw-2 mb-0">{menu?.name}</h1>
                     <span className="UnderLine"></span>
-                    <Row className="m-auto">
-                        <Col sm={0} md={1} lg={2}></Col>
-                        <Col sm={12} md={10} lg={8}>
-                            <Card style={{ width: '18rem' }}>
-                                <Card.Img variant="top" src={`${menu?.dishes[0].url}`} />
-                                <Card.Body>
-                                    <Card.Title>Card Title</Card.Title>
-                                    <Card.Text>Some quick example text to build on the card title.</Card.Text>
-                                    <Card.Footer>Hey</Card.Footer>
-                                </Card.Body>
-                            </Card>
-                        </Col>
-                        <Col sm={0} md={1} lg={2}></Col>
+                    <Row xs={1} sm={2} md={3} lg={4} className="g-3 m-auto d-flex justify-content-center align-items-center">
+                      {
+                        menu.dishes.length > 0 ?
+                        menu.dishes.map(dish => (
+                          <TopImageCard key={dish?._id} dish={dish}/>
+                        )) :
+                        <></>
+                      }
                     </Row>
                 </>
             }
