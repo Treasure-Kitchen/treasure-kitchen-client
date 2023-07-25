@@ -1,18 +1,25 @@
 import { Link, useNavigate } from 'react-router-dom';
 import '../../../../App.css';
-import {FaUserPlus, FaSignInAlt, FaHome, FaShoppingCart, FaBars, FaCalendar, FaInfoCircle, FaPhoneAlt, FaSignOutAlt, FaUser } from 'react-icons/fa';
+import {FaUserPlus, FaSignInAlt, FaShoppingCart, FaPhoneAlt, FaSignOutAlt, FaUser, FaHome, FaQuestionCircle, FaCalendarAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../auth/authSlice';
 import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Logo from './Logo';
+import { numbers } from '../../../../settings/settings';
 
 const NavigationBar = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const user = useSelector((state) => state.auth.user);
+    const { dishes } = useSelector((state) => state.dishes);
+
     const onLogout = () => {
         dispatch(logout());
         navigate('/', { replace: true });
+    }
+
+    const onClick = () => {
+        navigate('/checkout', { replace: true });
     }
 
   return (
@@ -33,31 +40,30 @@ const NavigationBar = () => {
                     <button type="button" className="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div className="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
-                    <ul className="navbar-nav justify-content-center fs-5 align-items-center flex-grow-1 pe-3">
+                    <ul className="navbar-nav justify-content-around fs-5 align-items-center flex-grow-1 pe-3">
                         <li className="nav-item">
-                            <Link className="nav-link active mx-2" aria-current="page" to="/"><FaHome /> Home</Link>
+                            <Link aria-current="page" className="nav-link" to="/" ><FaHome size={30}/></Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link aria-current="page" className="nav-link" to="/about" ><FaQuestionCircle size={30}/></Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="/contact"><FaPhoneAlt size={30}/></Link>
+                        </li>
+                        <li className="nav-item">
+                            <Button className='nav-link DeLink' disabled={dishes.length <= 0} onClick={onClick}>
+                                <FaShoppingCart size={30}/>
+                                <sub className='text-danger fw-bold'>
+                                    {
+                                    dishes.length <= numbers.Nine ?
+                                    dishes.length :
+                                    `${numbers.Nine}+`
+                                    }
+                                </sub>
+                            </Button>
                         </li>
                         <li className="nav-item mx-2">
-                            <Link className="nav-link" to="/about"><FaInfoCircle /> About</Link>
-                        </li>
-                        <li className="nav-item mx-2">
-                            <Link className="nav-link" to="/contact"><FaPhoneAlt /> Contact</Link>
-                        </li>
-                        <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#/" role="button" data-bs-toggle="dropdown" aria-expanded="false">Pages</a>
-                            <ul className="dropdown-menu bg-transparent fs-5">
-                                <li>
-                                    <Link className="dropdown-item text-white" aria-current="page" to="/reservation"><FaCalendar /> Book A Table</Link>
-                                </li>
-                                <li><hr className="dropdown-divider"/></li>
-                                <li>
-                                    <Link className="dropdown-item text-white" aria-current="page" to="/reservation"><FaShoppingCart /> Place an Order</Link>
-                                </li>
-                                <li><hr className="dropdown-divider"/></li>
-                                <li>
-                                    <Link className="dropdown-item text-white" aria-current="page" to="/reservation"><FaBars /> Menus</Link>
-                                </li>
-                            </ul>
+                            <Link className="nav-link" to="/reservations"><FaCalendarAlt size={30}/></Link>
                         </li>
                     </ul>
                     <div 

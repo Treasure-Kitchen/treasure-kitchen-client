@@ -3,8 +3,21 @@ import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 import { colors, currencies } from '../../../../../settings/settings';
 import { FaShoppingCart } from 'react-icons/fa';
+import { useDispatch, useSelector } from 'react-redux';
+import { addDish, removeDish } from '../../../../dish/dishSlice';
 
 const TopImageCard = ({dish}) => {
+  const { dishes } = useSelector((state) => state.dishes);
+  const dispatch = useDispatch();
+
+  const onAddDish = () => {
+    dispatch(addDish(dish?._id))
+  }
+
+  const onRemoveDish = () => {
+    dispatch(removeDish(dish?._id))
+  }
+
   const [readMore,setReadMore] = useState(false);
   const linkName = readMore ? 'Less <<' : 'More >>';
   const button = <Button className='ButtonToLink text-center' onClick={()=>{setReadMore(!readMore)}}>{linkName}</Button>;
@@ -40,7 +53,11 @@ const TopImageCard = ({dish}) => {
             <Card.Footer>
                 <span className='fw-bold text-muted'>{currencies.Naira}{dish?.price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
                 <span className='FloatRight Cursored px-1'>
-                    <FaShoppingCart color={`${colors.Grey}`} size={20}/>
+                    {
+                        dishes.includes(dish?._id) ?
+                        <FaShoppingCart color={`${colors.Gold}`} size={20} onClick={onRemoveDish}/> :
+                        <FaShoppingCart color={`${colors.Grey}`} size={20} onClick={onAddDish}/>
+                    }
                 </span>
             </Card.Footer>
         </Card.Body>

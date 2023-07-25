@@ -75,6 +75,13 @@
   font-size: 4rem;
 }
 
+.CartButton {
+  position: fixed;
+  bottom: 0.6rem !important;
+  right: 1rem !important;
+  z-index: 50;
+}
+
 .LinkToButton {
   background: var(--shadowBlack);
   color: var(--stainlessSteel);
@@ -154,9 +161,9 @@
 }
 
 .DeLink {
-  background: none!important;
+  background: none !important;
   border: none !important;
-  padding: 0!important;
+  padding: 0 !important;
   outline: none !important;
   cursor: pointer;
 }

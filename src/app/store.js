@@ -3,7 +3,8 @@ import { userApi } from '../features/api/userApi';
 import { setupListeners } from '@reduxjs/toolkit/dist/query';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, PERSIST } from 'redux-persist';
-import authReducer from '../features/auth/authSlice'
+import authReducer from '../features/auth/authSlice';
+import dishReducer from '../features/dish/dishSlice';
 import { authApi } from '../features/api/authApi';
 import { orderApi } from '../features/api/orderApi';
 import { dishApi } from '../features/api/dishApi';
@@ -19,7 +20,8 @@ const reducer = combineReducers({
   [authApi.reducerPath]: authApi.reducer,
   [orderApi.reducerPath]: orderApi.reducer,
   [dishApi.reducerPath]: dishApi.reducer,
-  auth: authReducer
+  auth: authReducer,
+  dishes: dishReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

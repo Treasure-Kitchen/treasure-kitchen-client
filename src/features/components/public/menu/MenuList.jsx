@@ -1,8 +1,7 @@
-import React from 'react'
-import { Container, Row, Spinner } from 'react-bootstrap'
-import MainCover from '../common/MainCover'
-import { COVER_IMAGE } from '../../../../settings/settings'
-import TopImageCard from '../common/cards/TopImageCard'
+import { Container, Row, Spinner } from 'react-bootstrap';
+import MainCover from '../common/MainCover';
+import { COVER_IMAGE } from '../../../../settings/settings';
+import TopImageCard from '../common/cards/TopImageCard';
 
 const MenuList = () => {
     const menu = {
