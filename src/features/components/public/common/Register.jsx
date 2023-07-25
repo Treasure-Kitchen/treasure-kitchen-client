@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useSignUpMutation } from "../../../api/userApi";
 import { toast } from "react-toastify";
+import { COVER_IMAGE } from "../../../../settings/settings";
 
 const Register = () => {
   //const userId = document.cookie.replace(/(?:(?:^|.*;\s*)profile\s*\=\s*([^;]*).*$)|^.*$/, "$1");
@@ -23,7 +24,6 @@ const Register = () => {
     password: '',
     confirmPassword: ''
   })
-console.log(error)
   const { name, emailAddress, password, confirmPassword } = formData;
 
   useEffect(() => {
@@ -59,7 +59,7 @@ console.log(error)
 
   return (
     <Container style={{position: 'relative'}} fluid>
-      <Row className="App" style={{backgroundImage: 'url(https://res.cloudinary.com/otrprojs/image/upload/v1687569662/page-common-bg_jiy1g2.jpg)'}}>
+      <Row className="App" style={{backgroundImage: `url(${COVER_IMAGE})`}}>
         <Row className="color-overlay d-flex justify-content-center align-items-center">
           <h1 className="AppHeading text-center">Register</h1>
         </Row>

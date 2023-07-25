@@ -4,8 +4,9 @@ import { DUMMY_USER_PHOTO } from "../../../../settings/settings";
 import { useGetProfileQuery } from "../../../api/userApi";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { FaEdit, FaList, FaPlusSquare } from "react-icons/fa";
+import { FaEdit, FaEye, FaList, FaMapMarkerAlt, FaPlusSquare } from "react-icons/fa";
 import Danger from "../../public/common/toasts/Danger";
+import { useGetUserOrdersQuery } from "../../../api/orderApi";
 
 const UserProfile = () => {
 	const { user } = useSelector((state) => state.auth);
@@ -14,28 +15,17 @@ const UserProfile = () => {
 		isError,
 		isLoading
 	} = useGetProfileQuery(user?.user?.id);
-	const registeredOn = new Date(profile?.createdAt).toLocaleDateString();
+
+	const qString = `?page=1&perPage=2`;
+	const { data: orders } = useGetUserOrdersQuery(qString);
+	console.log(orders)
 	const profilePhoto = profile?.photo ? profile.photo : DUMMY_USER_PHOTO;
 
 	return (
-		<Container style={{ position: "relative" }} fluid>
+		<Container fluid className="PaddingTop">
+			<Row>
 			<Row
-				className="App"
-				style={{
-					backgroundImage:
-						"url(https://res.cloudinary.com/otrprojs/image/upload/v1687569662/page-common-bg_jiy1g2.jpg)",
-				}}
-			></Row>
-			<Row
-				className="p-0"
-				style={{
-					position: "absolute",
-					top: "50%",
-					left: "0",
-					right: "0",
-					margin: "0 1.5rem",
-				}}
-			>
+				className="p-0 m-auto mb-5">
 				{ isLoading ? 
 					<>
 						<span className="d-flex justify-content-center align-items-center"><Spinner variant="light"/></span>
@@ -45,7 +35,7 @@ const UserProfile = () => {
 						<Danger message={<p>There was an error getting your profile details. Please <Link className="fw-bold" to='/contact'>contact</Link> Treasure Kitchen if the error persists.</p>}/>
 					</div> :
 					<>
-						<Col className="" sm={12} md={6} style={{ minHeight: "40vh" }}>
+						<Col className="" sm={12} md={6}>
 							<Card
 								bg="light"
 								className="BoxShadow my-1"
@@ -71,8 +61,16 @@ const UserProfile = () => {
 										<span className="text-muted">{profile?.email}</span>
 									</ListGroup.Item>
 									<ListGroup.Item className="bgColor">
-										<span className="fw-bold">Registered:</span>{" "}
-										<span className="text-muted">{registeredOn}</span>
+										<span className="fw-bold"><FaMapMarkerAlt /></span>{" "}
+										{ profile?.address ?
+											<>
+												<span className="text-muted">{profile?.address?.locality}, {profile?.address?.country}.</span>
+												<Link to={`/address/${profile?.address?._id}/edit`} style={{float: 'right'}}>
+													<FaEdit color="#583010" size={20} />
+												</Link>
+											</> : 
+											<Link to='/address/add' style={{ float: 'right' }}>Add Address</Link>
+										}
 									</ListGroup.Item>
 								</ListGroup>
 							</Card>
@@ -89,7 +87,7 @@ const UserProfile = () => {
 								>
 									<span>Orders </span>
 									<span>
-										<Link to="">
+										<Link to="/orders/create">
 											<FaPlusSquare color="#583010" size={20} />
 										</Link>
 									</span>
@@ -100,8 +98,16 @@ const UserProfile = () => {
 									</span>
 								</Card.Header>
 								<ListGroup variant="flush">
-									<ListGroup.Item className="bgColor">Order 1</ListGroup.Item>
-									<ListGroup.Item className="bgColor">Order 2</ListGroup.Item>
+									{ orders?.Data.length > 0 ?
+										orders?.Data.map(order => (
+											<ListGroup.Item>
+												{order?.dishes.length} dish(es) | ₦{order?.price} | {order?.status} | <FaEye color="#583010" size={15}/>
+											</ListGroup.Item>
+										)) :
+										<>
+											<span className="text-muted text-center text-italic m-auto py-2">You have no order</span>
+										</>
+									}
 								</ListGroup>
 							</Card>
 							<Card
@@ -133,6 +139,7 @@ const UserProfile = () => {
 						</Col>
 					</>
 				}
+			</Row>
 			</Row>
 		</Container>
 	);

@@ -1,15 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Bungee+Inline&family=Fredericka+the+Great&family=Herr+Von+Muellerhoff&family=Kristi&family=Qwigley&family=Rubik+Moonrocks&family=Rye&family=Yesteryear&Akronim&family=Big+Shoulders+Inline+Text:wght@100&family=Codystar:wght@300&family=Fascinate+Inline&family=Londrina+Outline&family=Molle&family=Monofett&family=Piedra&family=Press+Start+2P&family=Raleway+Dots&family=Rubik+Gemstones&family=Rubik+Storm&family=Vast+Shadow&display=swap');
+
+:root {
+  --shadowBlack: #1B1610;
+  --ebony: #080402;
+  --stainlessSteel: #CFD4D9;
+  --smokyBlack: #100C08;
+  --Licorice: #1A1110;
+  --coolBlack: #151922;
+  --midNight: #040406;
+  --lightBrownish: #CB997E;
+  --lighterBrownish: #DDBEA9;
+  --treasureColor: #49321C;
+  --boxShadow: 0.1rem 0.3rem rgba(0, 0, 0, .1);
+}
+
+.Logo {
+  background: var(--midNight);
+  padding: .4rem;
+  font-size: larger;
+  border-radius: 1rem;
+  border: 0.1rem solid var(--treasureColor);
+  margin: auto;
+}
+
+.FloatRight {
+  float: right;
+}
+
+.Cursored {
+  cursor: pointer;
+}
+
+.Treasure {
+  font-family: 'Bowlby One SC', sans-serif;
+  color: var(--stainlessSteel);
+}
+
+.Kitchen {
+  font-family: 'Herr Von Muellerhoff', sans-serif;
+  font-size: 2rem;
+  color: var(--lighterBrownish);
+}
+
+.MenuName {
+  font-family: 'Bungee Inline', sans-serif !important;
+  color: var(--stainlessSteel) !important;
+}
+
 .App {
+  background-color: var(--lighterBrownish);
+  background-size: cover;
+  min-height: 100vh;
+  color: var(--shadowBlack);
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+}
+
+.TreasureText {
+  color: var(--treasureColor);
+}
+
+.NavigationBar {
   margin: 0;
   padding: 0;
-  background-size: cover;
-  min-height: 60vh;
-  position: relative;
-  color: wheat;
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+  background-color: var(--shadowBlack) !important;
+  color: var(--lighterBrownish) !important;
+  min-height: 10vh;
+}
+
+.PaddingTop {
+  padding-top: 10rem;
 }
 
 .AppHeading {
   font-size: 4rem;
+}
+
+.CartButton {
+  position: fixed;
+  bottom: 0.6rem !important;
+  right: 1rem !important;
+  z-index: 50;
+}
+
+.LinkToButton {
+  background: var(--shadowBlack);
+  color: var(--stainlessSteel);
+  text-decoration: none;
+  cursor: pointer;
+  padding: .7rem 1rem;
+  font-weight: bold;
+  border-radius: .3rem;
+}
+
+.ButtonToLink {
+  background: transparent !important;
+  outline: none !important;
+  color: blue !important;
+  text-decoration: underline !important;
+  border: none !important;
+  padding: 0 5px !important;
+  margin: 0 !important;
+}
+
+.MinHeightthOne {
+  min-height: 3rem;
+}
+
+.UnderLine {
+  border: 0.1rem solid var(--shadowBlack); 
+  margin-bottom: 2rem !important;
+  background: var(--shadowBlack);
 }
 
 .color-overlay {
@@ -17,6 +117,11 @@
   width: 100%;
   height: 100%;
   background-color: rgba((0), 0, 0, .2);
+}
+
+.imageOverlay {
+  background-size: cover;
+  min-height: 90vh;
 }
 
 .BoxShadow {
@@ -55,12 +160,44 @@
   background-color: #00acee;
 }
 
+.DeLink {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  outline: none !important;
+  cursor: pointer;
+}
+
 @media (max-width: 768px) {
   .App {
-    min-height: 30vh;
+    min-height: 100vh;
   }
 
-  .AppHeading {
+.AppHeading {
     font-size: calc(1.525rem + 3.3vw);
+  }
+}
+
+.FedericaFont {
+  font-family: 'Fredericka the Great', sans-serif;
+}
+
+.Heading {
+  font-family: 'Bungee Inline', sans-serif;
+  text-align: center;
+  font-size: 7vw;
+  color: var(--shadowBlack);
+  padding: 2rem 0;
+}
+
+@media(max-width: 767px){
+  .Heading {
+      font-size: 12vw;
+  }
+}
+
+@media (max-width: 576px){
+  .Heading {
+      font-size: 12vw;
   }
 }

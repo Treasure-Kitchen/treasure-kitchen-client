@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useGetProfileQuery, useUpdateNameMutation } from "../../../api/userApi";
+import { COVER_IMAGE } from "../../../../settings/settings";
 
 const UpdateName = () => {
   const navigate = useNavigate();
@@ -58,7 +59,7 @@ const UpdateName = () => {
 
   return (
     <Container style={{position: 'relative'}} fluid>
-      <Row className="App" style={{backgroundImage: 'url(https://res.cloudinary.com/otrprojs/image/upload/v1687569662/page-common-bg_jiy1g2.jpg)'}}>
+      <Row className="App" style={{backgroundImage: `url(${COVER_IMAGE})`}}>
       </Row>
       <Row className="m-0 p-0" style={{position: 'absolute', top: '70%', left: '0', right: '0'}}>
         <Col xs={0} sm={1} md={2} lg={3} className="m-0 p-0"></Col>

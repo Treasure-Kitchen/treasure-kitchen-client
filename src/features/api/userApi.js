@@ -32,6 +32,32 @@ export const userApi = createApi({
                 body: formData
             }),
             invalidatesTags: ['UserProfile']
+        }),
+        addAddress: builder.mutation({
+            query: (data) => ({
+                url: '/addresses',
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: ['UserProfile']
+        }),
+        updateAddress: builder.mutation({
+            query: ({ id, formData }) => ({
+                url: `/addresses/${id}`,
+                method: 'PUT',
+                body: formData
+            }),
+            invalidatesTags: ['UserProfile']
+        }),
+        getAddressById: builder.query({
+            query: (id) => `/addresses/${id}`,
+            providesTags: ['UserProfile']
+        }),
+        deleteAddress: builder.mutation({
+            query: (id) => ({
+                url: `/addresses/${id}`,
+                method: 'DELETE'
+            })
         })
     })
 });
@@ -39,5 +65,9 @@ export const userApi = createApi({
 export const {
     useSignUpMutation,
     useUpdateNameMutation,
-    useGetProfileQuery
+    useGetProfileQuery,
+    useAddAddressMutation,
+    useUpdateAddressMutation,
+    useDeleteAddressMutation,
+    useGetAddressByIdQuery
 } = userApi;

@@ -1,10 +1,11 @@
 import React from 'react'
 import { Card, Col, Container, Row } from 'react-bootstrap'
+import { COVER_IMAGE } from '../../../../settings/settings'
 
 const VerifyEmployeeEmail = () => {
   return (
     <Container style={{position: 'relative'}} fluid>
-      <Row className="App" style={{backgroundImage: 'url(https://res.cloudinary.com/otrprojs/image/upload/v1687569662/page-common-bg_jiy1g2.jpg)'}}>
+      <Row className="App" style={{backgroundImage: `url(${COVER_IMAGE})`}}>
         <Row className="color-overlay d-flex justify-content-center align-items-center">
           
         </Row>
