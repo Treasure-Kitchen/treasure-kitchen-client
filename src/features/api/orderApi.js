@@ -43,7 +43,10 @@ export const orderApi = createApi({
             invalidatesTags: ['Order']
         }),
         deleteOrder: builder.mutation({
-            query: (id) => `/${id}`,
+            query: (id) => ({
+               url:  `/${id}`,
+               method: 'DELETE'
+            }),
             invalidatesTags: ['Order']
         }),
         payForOrder: builder.mutation({

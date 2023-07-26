@@ -46,7 +46,7 @@ const TopImageCard = ({dish}) => {
 
   return (
     <Card className='p-0 m-1 mb-2'>
-        <Card.Img variant="top" src={`${dish.url}`} />
+        <Card.Img variant="top" src={`${dish?.photo}`} style={{maxHeight: '10.2rem'}}/>
         <Card.Body>
             <Card.Title>{dish?.name}</Card.Title>
             {description}

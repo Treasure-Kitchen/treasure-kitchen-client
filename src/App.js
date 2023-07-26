@@ -15,12 +15,12 @@ import VerifyEmployeeEmail from './features/components/public/verification/Verif
 import ResetUserPassword from './features/components/public/common/ResetUserPassword';
 import UserProfile from './features/components/private/user-profile/UserProfile';
 import UpdateName from './features/components/private/user-profile/UpdateName';
+import NavigationBar from './features/components/public/common/NavigationBar';
 import CreateOrder from './features/components/private/orders/CreateOrder';
+import Checkout from './features/components/private/order/Checkout';
+import MenuList from './features/components/public/menu/MenuList';
 import AddAddress from './features/components/private/address/AddAddress';
 import UpdateAddress from './features/components/private/address/UpdateAddress';
-import NavigationBar from './features/components/public/common/NavigationBar';
-import MenuList from './features/components/public/menu/MenuList';
-import Checkout from './features/components/public/common/order/Checkout';
 
 function App() {
   return (

@@ -6,7 +6,7 @@ export const dishApi = createApi({
     baseQuery: fetchBaseQuery({
         baseUrl: `${BASE_URL}/dishes`,
         prepareHeaders: (headers, { getState }) => {
-            const auth = getState();
+            const {auth} = getState();
             const token = auth?.user?.accessToken;
             headers.set('Authorization', token ? `Bearer ${token}` : '');
             return headers;
@@ -17,10 +17,19 @@ export const dishApi = createApi({
         getAllDishes: builder.query({
             query: (qString) => `/${qString}`,
             providesTags: ['Dish']
+        }),
+        getDishesByIds: builder.mutation({
+            query: (array) => ({
+                url: '/get-many-by-ids',
+                method: 'POST',
+                body: array
+            }),
+            invalidatesTags: ['Dish']
         })
     })
 });
 
 export const {
-    useGetAllDishesQuery
+    useGetAllDishesQuery,
+    useGetDishesByIdsMutation
 } = dishApi;
