@@ -39,10 +39,10 @@ export const STATES = [
 ]
 
 export const currencies = {
-  Naira: 'NGN',
-  Dollars: 'USD',
-  Euro: 'EUR',
-  Pound: 'BPD'
+  Naira: '₦',
+  Dollars: '$',
+  Euro: '€',
+  Pound: '£'
 }
 
 export const numbers = {

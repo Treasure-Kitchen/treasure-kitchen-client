@@ -1,27 +1,20 @@
-import React, { useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { useGetDishesByIdsMutation } from '../../../api/dishApi';
+import { useSelector } from 'react-redux';
 import { Spinner } from 'react-bootstrap';
 import Danger from '../../public/common/toasts/Danger';
+import { useGetDishesByIdsQuery } from '../../../api/dishApi';
 
 const Checkout = () => {
     const { dishes } = useSelector((state) => state.dishes);
-    const [getListOfDishes, { data, isLoading, isError, error }] = useGetDishesByIdsMutation();
-    useEffect(() => {
-      if(dishes.length > 0){
-        const fetchdishes = async() => {
-          await getListOfDishes({ dishes: dishes });
-        }
-        fetchdishes()
-      }
-    }, [dishes, getListOfDishes]);
+    const itemsIds = dishes?.join();
+    const { data, isLoading, isError } = useGetDishesByIdsQuery(itemsIds);
+    
   return (
     <div>
         {
           isLoading ? 
           <Spinner /> :
           isError ?
-          <Danger message={error?.data}/> :
+          <Danger message={'An error occured trying to fetch dishes in the cart. Please try again later.'}/> :
           data && data.map(dish => (
             <p key={dish?._id}>{dish?._id}, {dish?.name}, {dish?.description}</p>
           ))

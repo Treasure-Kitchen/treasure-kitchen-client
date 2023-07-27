@@ -5,13 +5,18 @@ import { colors, currencies } from '../../../../../settings/settings';
 import { FaShoppingCart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { addDish, removeDish } from '../../../../dish/dishSlice';
+import { toast } from 'react-toastify';
 
 const TopImageCard = ({dish}) => {
   const { dishes } = useSelector((state) => state.dishes);
   const dispatch = useDispatch();
 
   const onAddDish = () => {
-    dispatch(addDish(dish?._id))
+    if(dishes?.length <= 49){
+      dispatch(addDish(dish?._id))
+    } else {
+      toast.info(`You can not add more than ${dishes?.length} item(s) to the Cart.`);
+    }
   }
 
   const onRemoveDish = () => {

@@ -21,6 +21,7 @@ import Checkout from './features/components/private/order/Checkout';
 import MenuList from './features/components/public/menu/MenuList';
 import AddAddress from './features/components/private/address/AddAddress';
 import UpdateAddress from './features/components/private/address/UpdateAddress';
+import AddOrder from './features/components/private/order/AddOrder';
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
           <Route path='address/:id/edit' element={<UpdateAddress />} />
           <Route path='menus/:id' element={<MenuList />} />
           <Route path='checkout' element={<Checkout />} />
+          <Route path='add-order' element={<AddOrder />} />
         </Route>
       </Routes>
     </>

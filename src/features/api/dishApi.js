@@ -18,12 +18,8 @@ export const dishApi = createApi({
             query: (qString) => `/${qString}`,
             providesTags: ['Dish']
         }),
-        getDishesByIds: builder.mutation({
-            query: (array) => ({
-                url: '/get-many-by-ids',
-                method: 'POST',
-                body: array
-            }),
+        getDishesByIds: builder.query({
+            query: (ids) => `/${ids}/get-many`,
             invalidatesTags: ['Dish']
         })
     })
@@ -31,5 +27,5 @@ export const dishApi = createApi({
 
 export const {
     useGetAllDishesQuery,
-    useGetDishesByIdsMutation
+    useGetDishesByIdsQuery
 } = dishApi;

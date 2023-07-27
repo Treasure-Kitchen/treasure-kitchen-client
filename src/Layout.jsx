@@ -10,7 +10,7 @@ const Layout = () => {
   const {dishes} = useSelector((state) => state.dishes);
   const navigate = useNavigate();
   const onClick = () => {
-    navigate('/checkout', { replace: true });
+    navigate('/add-order', { replace: true });
   }
 
   return (
