@@ -6,13 +6,14 @@ import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { useGetProfileQuery } from '../../../api/userApi';
-import { ListGroup, Spinner, Toast } from 'react-bootstrap';
+import { Form, ListGroup, Spinner, Toast } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { colors, currencies } from '../../../../settings/settings';
 import { FaPlusCircle, FaTimesCircle } from 'react-icons/fa';
 import { addDish, clearDishes, removeDish } from '../../../dish/dishSlice';
 import { toast } from 'react-toastify';
 import { useGetDishesByIdsQuery } from '../../../api/dishApi';
+import { useCreateOrderMutation } from '../../../api/orderApi';
 
 const AddOrder = () => {
     const {user} = useSelector((state) => state.auth?.user);
@@ -23,7 +24,8 @@ const AddOrder = () => {
     const [total, setTotal] = useState();
 
     const { data: profile, isLoading, isError } = useGetProfileQuery(user?.id);
-    const { data, isLoadingDish, isDishError } = useGetDishesByIdsQuery(itemsIds);
+    const { data, isLoading: isLoadingDish, isError: isDishError } = useGetDishesByIdsQuery(itemsIds);
+    const [createOrder, { data: createData, isLoading: isCreateLoading, isSuccess, isError: isOrderError, error: orderError }] = useCreateOrderMutation();
 
     let address = profile?.address?.line1;
     address = profile?.address?.line2 ?
@@ -46,9 +48,19 @@ const AddOrder = () => {
         dispatch(removeDish(dishId))
     }
 
-    // const onClearDish = () => {
-    //     dispatch(clearDishes());
-    // }
+    useEffect(() => {
+        if(isOrderError){
+            toast.error(orderError?.data?.message)
+        }
+    }, [isOrderError, orderError])
+
+    useEffect(() => {
+        if(isSuccess || createData){
+            toast.success(createData?.message);
+            dispatch(clearDishes());
+            navigate(-1, { replace: true });
+        }
+    }, [createData, isSuccess, dispatch, navigate])
 
     useEffect(() => {
         if(data?.length > 0){
@@ -62,15 +74,43 @@ const AddOrder = () => {
             }
             calculateTotal();
         }
-    }, [data, dishes])
+    }, [data, dishes]);
+
+    const [formData, setFormData] = useState({
+        phoneNumber: ''
+    });
+
+    const { phoneNumber } = formData;
+    const [validated, setValidated] = useState(false);
+    const onChange = (e) => {
+        setFormData((prevState) => ({
+          ...prevState,
+          [e.target.name]: e.target.value
+        }))
+    }
+      
+    const handleSubmit = async (e) => {
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+        } else {
+            setValidated(true);
+            e.preventDefault();
+            if(phoneNumber && dishes.length > 0 && profile?.address){
+                const data = { phoneNumber: phoneNumber, dishes: dishes }
+                await createOrder(data);
+            }
+        }
+    };
 
   return (
-    <Container fluid style={{marginTop: '10vh'}}>
+    <Container fluid style={{marginTop: '10vh'}} className='pb-5'>
         <Row className='mt-5 d-flex justify-content-center'>
             <Col sm={0} md={3} lg={4}></Col>
             <Col sm={12} md={6} lg={4}>
-                <Card style={{minHeight: '30vh'}}>
-                    <Card.Header className='fw-bold fs-4'>Place Your Order</Card.Header>
+                <Card style={{minHeight: '30vh'}} className='mb-2'>
+                    <Card.Header className='fw-bold fs-4'>Order Details</Card.Header>
                     {
                         isLoading || isLoadingDish ?
                             <Spinner className='m-auto'/> :
@@ -120,17 +160,39 @@ const AddOrder = () => {
                         </>
                     }
                 </Card>
-                <Row lg={12} className=" mt-2">
-                    <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-2">
-                        <Button type="submit" className='loginButton noOutline w-100 p-2 btn-secondary' onClick={goBack} disabled={isLoading}>Back</Button>
-                    </Col>
-                    <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-2">
-                    { isLoading ? 
-                        <Button type="submit" className='loginButton w-100 noOutline p-1' style={{background: '#583010'}}><Spinner /></Button> :
-                        <Button type="submit" className='loginButton w-100 p-2 noOutline' style={{background: '#583010'}}>Place Order</Button>
-                    }
-                    </Col>
-                </Row>
+                <Card bg='light' className="m-1 w-100 BoxShadow m-auto">
+                    <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                        <Row className="mb-3 p-2">
+                            <Col lg={12} className='mb-1'>
+                                <Form.Group>
+                                    <Form.Label className='RegistrationLabel'>Phone Number</Form.Label>
+                                    <Form.Control 
+                                        className="p-2"
+                                        type="tel"
+                                        autoComplete="off"
+                                        required      
+                                        id="phoneNumber"
+                                        name="phoneNumber"
+                                        value={phoneNumber}
+                                        onChange={onChange}
+                                        placeholder="+1234567890"/>
+                                        <Form.Control.Feedback type="invalid">Phone number is required!</Form.Control.Feedback>
+                                </Form.Group>
+                            </Col>
+                            <Row lg={12} className='m-auto p-0 m-0'>
+                                <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-1">
+                                    <Button type="submit" className='loginButton noOutline w-100 p-2 btn-secondary' onClick={goBack} disabled={isCreateLoading}>Back</Button>
+                                </Col>
+                                <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-1">
+                                { isCreateLoading ? 
+                                    <Button type="submit" className='loginButton w-100 noOutline p-1' style={{background: '#583010'}} disabled={isCreateLoading}><Spinner /></Button> :
+                                    <Button type="submit" className='loginButton w-100 p-2 noOutline' style={{background: '#583010'}} disabled={isLoading && isLoadingDish}>Place Order</Button>
+                                }
+                                </Col>
+                            </Row>
+                        </Row>
+                    </Form>
+                </Card>
             </Col>
             <Col sm={0} md={3} lg={4}></Col>
         </Row>
