@@ -9,6 +9,7 @@ import { authApi } from '../features/api/authApi';
 import { orderApi } from '../features/api/orderApi';
 import { dishApi } from '../features/api/dishApi';
 import { menuApi } from '../features/api/menuApi';
+import { addressApi } from '../features/api/addressApi';
 
 const persistConfig = {
   key: "root",
@@ -22,6 +23,7 @@ const reducer = combineReducers({
   [orderApi.reducerPath]: orderApi.reducer,
   [dishApi.reducerPath]: dishApi.reducer,
   [menuApi.reducerPath]: menuApi.reducer,
+  [addressApi.reducerPath]: addressApi.reducer,
   auth: authReducer,
   dishes: dishReducer,
 });
@@ -37,7 +39,7 @@ export const store = configureStore({
       },
     }).concat(
         userApi.middleware, authApi.middleware, orderApi.middleware,
-        dishApi.middleware, menuApi.middleware
+        dishApi.middleware, menuApi.middleware, addressApi.middleware
       )
 });
 

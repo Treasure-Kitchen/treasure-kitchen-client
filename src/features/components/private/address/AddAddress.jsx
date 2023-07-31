@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react'
-import { Button, Card, Col, Container, Form, Row, Spinner } from 'react-bootstrap'
-import { COUNTRIES, COVER_IMAGE, STATES } from '../../../../settings/settings'
-import { useNavigate } from 'react-router-dom'
-import { useAddAddressMutation } from '../../../api/userApi'
-import { toast } from 'react-toastify'
+import { useEffect, useState } from 'react';
+import { Button, Col, Container, FloatingLabel, Form, Row, Spinner } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { useAddAddressMutation } from '../../../api/userApi';
+import { toast } from 'react-toastify';
+import { useGetAllCountriesQuery } from '../../../api/addressApi';
+import { FaMapMarkerAlt } from 'react-icons/fa';
 
 const AddAddress = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { data: countries, isLoading: isCountryLoading } = useGetAllCountriesQuery('?includeStates=true');
+  const [states, setStates] = useState();
   const [formData, setFormData] = useState({
     line1: '',
     line2: '',
@@ -25,6 +28,16 @@ const AddAddress = () => {
   };
 
   const [addAddress, { data, isError, error, isLoading, isSuccess}] = useAddAddressMutation();
+
+  useEffect(() => {
+    const data = countries?.filter((ct) => {
+      return ct?.name === country;
+    });
+
+    if(data?.length > 0){
+      setStates(data[0]?.states)
+    }
+  }, [countries, country]);
 
   useEffect(() => {
     if(isError){
@@ -58,127 +71,118 @@ const AddAddress = () => {
   }
 
   return (
-    <Container style={{position: 'relative'}} fluid>
-      <Row className="App" style={{backgroundImage: `url(${COVER_IMAGE})`}}>
-      </Row>
-      <Row className="m-0 p-0" style={{position: 'absolute', top: '45%', left: '0', right: '0'}}>
-        <Col xs={0} sm={1} md={2} lg={3} className="m-0 p-0"></Col>
-        <Col xs={12} sm={10} md={8} lg={6} className="d-flex justify-content-center align-items-center">
-          <Card
-              bg='light'
-              className="m-1 w-100 BoxShadow"
-              style={{minHeight: '30vh'}}
-            >
-              <Card.Body className="d-flex justify-content-center flex-column align-items-center">
-                <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                  <Row className="mb-1">
-                    <Col lg={12} className='mb-1 py-2'>
-                        <Form.Group>
-                            <Form.Control 
-                                className="p-2"
-                                type="text"
-                                required      
-                                id="line1"
-                                name="line1"
-                                value={line1}
-                                onChange={onChange}
-                                placeholder="Address Line 1"/>
-                                <Form.Control.Feedback type="invalid">Address line 1 is required!</Form.Control.Feedback>
-                        </Form.Group>
-                    </Col>
-                    <Col lg={12} className='mb-1 py-2'>
-                        <Form.Group>
-                            <Form.Control 
-                                className="p-2"
-                                type="text"   
-                                id="line2"
-                                name="line2"
-                                value={line2}
-                                onChange={onChange}
-                                placeholder="Address Line 2"/>
-                        </Form.Group>
-                    </Col>
-                    <Row className="m-0 p-0">
-                      <Col sm={12} md={6} className='mb-1 py-2'>
-                        <Form.Group>
-                          <Form.Control 
-                            type="text"   
-                            id="locality"
-                            name="locality"
-                            value={locality}
-                            onChange={onChange}
-                            required
-                            placeholder='State/Locality'
-                          />
-                          <Form.Control.Feedback type="invalid">State/Locality is required!</Form.Control.Feedback>
-                        </Form.Group>
-                      </Col>
-                      <Col sm={12} md={6} className='mb-1 py-2'>
-                        <Form.Group>
-                          <Form.Control 
-                            type="text"   
-                            id="postalCode"
-                            name="postalCode"
-                            value={postalCode}
-                            onChange={onChange}
-                            required
-                            placeholder='Postal Code'
-                          />
-                          <Form.Control.Feedback type="invalid">Postal code is required!</Form.Control.Feedback>
-                        </Form.Group>
-                      </Col>
-                    </Row>
-                    <Row className='m-0 p-0 mb-1'>
-                      <Form.Group as={Col} sm={12} md={6} className='mb-1'>
-                        <Form.Label className='px-1'>Select Country</Form.Label>
-                        <Form.Select
-                            required
-                            id="country"
-                            name="country"
-                            value={country}
-                            onChange={onChange}
-                          >
-                            <option></option>
-                            { COUNTRIES && COUNTRIES.map(country => (
-                                <option key={country?.id} value={country?.name}>{country?.name}</option>
-                            ))}
-                        </Form.Select>
-                        <Form.Control.Feedback type="invalid">Country is required!</Form.Control.Feedback>
-                      </Form.Group>
-                      <Form.Group as={Col} sm={12} md={6} className='mb-1'>
-                        <Form.Label className='px-1'>Select State</Form.Label>
-                        <Form.Select
-                            required
-                            id="adminArea"
-                            name="adminArea"
-                            value={adminArea}
-                            onChange={onChange}
-                          >
-                            <option></option>
-                            { STATES && STATES.map(state => (
-                                <option key={state?.id} value={state?.name}>{state?.name}</option>
-                            ))}
-                        </Form.Select>
-                        <Form.Control.Feedback type="invalid">State is required!</Form.Control.Feedback>
-                      </Form.Group>
-                    </Row>
-                    <Row lg={12} className="m-auto m-0 p-0">
-                        <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-2">
-                            <Button type="submit" className='loginButton noOutline w-100 p-2 btn-secondary' onClick={goBack} disabled={isLoading}>Back</Button>
-                        </Col>
-                        <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-2">
-                            { isLoading ? 
-                                <Button type="submit" className='loginButton w-100 noOutline p-1' style={{background: '#583010'}}><Spinner /></Button> :
-                                <Button type="submit" className='loginButton w-100 p-2 noOutline' style={{background: '#583010'}}>Save</Button>
-                            }
-                        </Col>
-                    </Row>
-                  </Row>
-                </Form>
-              </Card.Body>
-            </Card>
+    <Container fluid>
+      <Row className="p-0 m-0 mt-5 pb-5 d-flex justify-content-center align-items-center m-auto">
+        <Col sm={0} md={2} lg={3} className="m-0 p-0"></Col>
+        <Col sm={12} md={8} lg={6} className="d-flex justify-content-center align-items-center mt-5">
+          {
+            isCountryLoading ?
+            <Spinner /> :
+            <Form noValidate validated={validated} onSubmit={handleSubmit} className="forms">
+              <h4 className='text-center fw-5 text-white pt-3'>
+                <FaMapMarkerAlt /> Add Address
+              </h4>
+              <Row className="mb-3">
+                <Col lg={12} className='mb-1 m-0 p-1'>
+                  <FloatingLabel label='Address Line 1'>
+                    <Form.Control 
+                      type="text"
+                      autoComplete="off"
+                      required      
+                      id="line1"
+                      name="line1"
+                      value={line1}
+                      onChange={onChange}/>
+                      <Form.Control.Feedback type="invalid">Address Line 1 is required!</Form.Control.Feedback>
+                  </FloatingLabel>
+                </Col>
+                <Col lg={12} className='mb-1 m-0 p-1'>
+                  <FloatingLabel label='Address Line 2'>
+                    <Form.Control 
+                      type="text"
+                      autoComplete="off"
+                      id="line2"
+                      name="line2"
+                      value={line2}
+                      onChange={onChange}/>
+                  </FloatingLabel>
+                </Col>
+                <Row lg={12} className='m-auto m-0 p-0'>
+                  <Col sm={12} md={7} className='mb-1 m-0 p-1'>
+                    <FloatingLabel label='City/Locality'>
+                      <Form.Control 
+                        type="text"
+                        autoComplete="off"
+                        id="locality"
+                        name="locality"
+                        value={locality}
+                        onChange={onChange}/>
+                    </FloatingLabel>
+                  </Col>
+                  <Col sm={12} md={5} className='mb-1 m-0 p-1'>
+                    <FloatingLabel label='Postal/Zip Code'>
+                      <Form.Control 
+                        type="text"
+                        autoComplete="off"
+                        id="postalCode"
+                        name="postalCode"
+                        value={postalCode}
+                        onChange={onChange}/>
+                    </FloatingLabel>
+                  </Col>
+                </Row>
+                <Row lg={12} className='m-auto m-0 p-0'>
+                  <Col sm={12} md={6} className='mb-1 m-0 p-1'>
+                    <Form.Group>
+                      <Form.Label className='text-white'>Select Country</Form.Label>
+                      <Form.Select
+                        required
+                        id="country"
+                        name="country"
+                        value={country}
+                        onChange={onChange}>
+                        <option></option>
+                        { countries && countries?.map(country => (
+                            <option key={country?._id} value={country?.name}>{country?.name}</option>
+                        ))}
+                      </Form.Select>
+                      <Form.Control.Feedback type="invalid">Country is required!</Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                  <Col sm={12} md={6} className='mb-1 m-0 p-1'>
+                    <Form.Group as={Col} className='mb-2'>
+                      <Form.Label className='text-white'>Select State</Form.Label>
+                      <Form.Select
+                        required
+                        id="adminArea"
+                        name="adminArea"
+                        value={adminArea}
+                        onChange={onChange}>
+                        <option></option>
+                        { states && states?.map(state => (
+                            <option key={state?._id} value={state?.name}>{state?.name}</option>
+                        ))}
+                      </Form.Select>
+                      <Form.Control.Feedback type="invalid">State is required!</Form.Control.Feedback>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row lg={12} className="m-auto m-0 p-0">
+                  <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-1 p-1">
+                      <Button type="submit" className='loginButton noOutline w-100 p-2 btn-secondary' onClick={goBack} disabled={isLoading}>Back</Button>
+                  </Col>
+                  <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-1 p-1">
+                      { isLoading ? 
+                        <Button type="submit" className='loginButton w-100 noOutline p-1 BtnColor'><Spinner /></Button> :
+                        <Button type="submit" className='loginButton w-100 p-2 noOutline BtnColor' disabled={isLoading}>Save</Button>
+                      }
+                  </Col>
+                </Row>
+              </Row>
+            </Form>
+          }
         </Col>
-        <Col xs={0} sm={1} md={2} lg={3} className="m-0 p-0"></Col>
+        <Col sm={0} md={2} lg={3} className="m-0 p-0"></Col>
       </Row>
     </Container>
   )

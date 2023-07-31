@@ -18,7 +18,6 @@ const UserProfile = () => {
 
 	const qString = `?page=1&perPage=2`;
 	const { data: orders } = useGetUserOrdersQuery(qString);
-	console.log(orders)
 	const profilePhoto = profile?.photo ? profile.photo : DUMMY_USER_PHOTO;
 
 	return (
@@ -65,7 +64,7 @@ const UserProfile = () => {
 										{ profile?.address ?
 											<>
 												<span className="text-muted">{profile?.address?.locality}, {profile?.address?.country}.</span>
-												<Link to={`/address/${profile?.address?._id}/edit`} style={{float: 'right'}}>
+												<Link to={`/address/${profile?.address?._id}/edit`} state={profile?.address} style={{float: 'right'}}>
 													<FaEdit color="#583010" size={20} />
 												</Link>
 											</> : 

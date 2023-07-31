@@ -10,16 +10,25 @@
   --midNight: #040406;
   --lightBrownish: #CB997E;
   --lighterBrownish: #DDBEA9;
-  --treasureColor: #49321C;
+  --lightLemon: #90B20B;
+  --treasureColor: #313C05;
+  --darkLemon: #161B02;
   --boxShadow: 0.1rem 0.3rem rgba(0, 0, 0, .1);
 }
 
+.forms {
+  background-color: rgba(22, 27, 2, .33);
+  box-shadow: 0px 8px 32px 0 rgba(255, 255, 255, 0.33);
+  backdrop-filter: blur(5px);
+  padding: 0 16px 16px 16px;
+  border-radius: 16px;
+}
+
 .Logo {
-  background: var(--midNight);
   padding: .4rem;
   font-size: larger;
   border-radius: 1rem;
-  border: 0.1rem solid var(--treasureColor);
+  border: 0.1rem solid var(--lightLemon);
   margin: auto;
 }
 
@@ -39,7 +48,7 @@
 .Kitchen {
   font-family: 'Herr Von Muellerhoff', sans-serif;
   font-size: 2rem;
-  color: var(--lighterBrownish);
+  color: var(--lightLemon);
 }
 
 .MenuName {
@@ -48,11 +57,9 @@
 }
 
 .App {
-  background-color: var(--lighterBrownish);
-  background-size: cover;
   min-height: 100vh;
   color: var(--shadowBlack);
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, .2);
+  /* text-shadow: 2px 2px 2px rgba(0, 0, 0, .2); */
 }
 
 .TreasureText {
@@ -62,9 +69,14 @@
 .NavigationBar {
   margin: 0;
   padding: 0;
-  background-color: var(--shadowBlack) !important;
+  background-color: var(--darkLemon) !important;
   color: var(--lighterBrownish) !important;
   min-height: 10vh;
+}
+
+.OffCanvas {
+  background: rgba(22, 27, 2, 0.25) !important;
+  backdrop-filter: blur(30px) !important;
 }
 
 .PaddingTop {
@@ -130,11 +142,15 @@
 -moz-box-shadow: -24px 32px 63px -21px rgba(0,0,0,0.67);
 }
 
+.BtnColor {
+  background-color: var(--darkLemon) !important;
+}
+
 .loginButton {
-  color: azure;
+  color: var(--stainlessSteel);
   padding: 15px;
   border-radius: 5px;
-  width: 150px;
+  width: 100%;
   cursor: pointer;
   font-weight: bold;
 }
