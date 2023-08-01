@@ -24,6 +24,8 @@ import UpdateAddress from './features/components/private/address/UpdateAddress';
 import AddOrder from './features/components/private/order/AddOrder';
 import ChangePawword from './features/components/private/user-profile/ChangePassword';
 import MyOrders from './features/components/private/order/MyOrders';
+import Dishes from './features/components/private/dish/Dishes';
+import Tracks from './features/components/private/order/Tracks';
 
 function App() {
   return (
@@ -50,7 +52,9 @@ function App() {
           <Route path='menus/:id' element={<MenuList />} />
           <Route path='checkout' element={<Checkout />} />
           <Route path='my-orders' element={<MyOrders />} />
+          <Route path='my-orders/:id/tracks' element={<Tracks />} />
           <Route path='orders/add' element={<AddOrder />} />
+          <Route path='dishes' element={<Dishes />} />
           <Route path='user-profile/change-password' element={<ChangePawword />} />
         </Route>
       </Routes>

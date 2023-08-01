@@ -74,3 +74,10 @@ export const orderStatus = {
   Confirmed: "primary",
   Completed: "success"
 }
+
+export const paymentStatus = {
+  "Paid": "success",
+  "Not Yet Paid": "secondary",
+  "Partial": "info",
+  "Over Paid": "danger"
+}

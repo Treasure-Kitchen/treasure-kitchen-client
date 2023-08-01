@@ -1,6 +1,13 @@
-import { useNavigate } from "react-router-dom"
+export const shortDateTime = (date) => {
+    let dateObject = new Date(date);
+    return dateObject.toLocaleDateString();
+}
 
-export const useGoBack = () => {
-    const navigate = useNavigate();
-    navigate(-1, { replace: true })
+export const shortLocalTime = (date) => {
+    let dateObj = new Date(date);
+    return dateObj.toLocaleTimeString();
+}
+
+export const formatMoneyTo2DP = (amount) => {
+    return amount.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
 }

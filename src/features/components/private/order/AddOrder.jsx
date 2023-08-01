@@ -14,6 +14,7 @@ import { addDish, clearDishes, removeDish } from '../../../dish/dishSlice';
 import { toast } from 'react-toastify';
 import { useGetDishesByIdsQuery } from '../../../api/dishApi';
 import { useCreateOrderMutation } from '../../../api/orderApi';
+import { formatMoneyTo2DP } from '../../../../settings/helpers';
 
 const AddOrder = () => {
     const {user} = useSelector((state) => state.auth?.user);
@@ -146,7 +147,7 @@ const AddOrder = () => {
                                                         <FaPlusCircle color={`${colors.Gold}`} onClick={() => onAddDish(dish?._id)}/>
                                                     }
                                                 </span>
-                                                <span className='FloatRight'>{currencies.Naira}{dish?.price.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                                                <span className='FloatRight'>{currencies.Naira}{formatMoneyTo2DP(dish?.price)}</span>
                                             </ListGroup.Item>
                                         )) :
                                         <></>
@@ -155,7 +156,7 @@ const AddOrder = () => {
                             </Card.Body>
                             <Card.Footer>
                                 <span className='fw-bold'>Total: </span>
-                                <span className='fw-bold text-muted FloatRight'>{currencies.Naira}{total?.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</span>
+                                <span className='fw-bold text-muted FloatRight'>{currencies.Naira}{formatMoneyTo2DP(total)}</span>
                             </Card.Footer>
                         </>
                     }

@@ -41,8 +41,20 @@
 .Border25 {
   border-bottom: 2px solid var(--darkLemon);
   margin: auto;
-  padding: 0;
+  padding: 0 1rem;
   margin: 0;
+}
+
+.DarkBorderTop-1 {
+  border-top: 1px solid var(--darkLemon);
+}
+
+.DarkBorderBottom-2 {
+  border-bottom: 2px solid var(--darkLemon);
+}
+
+.LightBorderBottom-2 {
+  border-bottom: 2px solid var(--stainlessSteel);
 }
 
 .names {
@@ -149,7 +161,7 @@
 }
 
 .UnderLine {
-  border: 0.1rem solid var(--shadowBlack); 
+  border: 0.1rem solid var(--darkLemon); 
   margin-bottom: 2rem !important;
   background: var(--shadowBlack);
 }
@@ -236,11 +248,17 @@
   padding: 2rem 0;
 }
 
+/* Images */
+.DishImageH {
+  width:  8rem;
+  height: 12rem;
+  object-fit:scale-down;
+}
+
 /*STARTS: Styling for responsive list display*/
 .housing {
   max-width: 1300px;
   width: 100%;
-  padding: 0 1rem;
 }
 
 .items {
@@ -259,8 +277,13 @@
   cursor: pointer;
 }
 
-.item:hover {
-  padding: 1.08rem;
+.item-2 {
+  flex: 0 0 calc(50% - 1rem);
+  max-width: calc(50% - 1rem);
+  width: 100%;
+  margin-bottom: 1rem;
+  transition: .3s;
+  cursor: pointer;
 }
 
 section {
@@ -282,7 +305,7 @@ section {
 }
 
 @media(max-width: 600px) {
-  .item {
+  .item, .item-2 {
     flex: 0 0 100%;
     max-width: 100%;
   }
@@ -300,4 +323,33 @@ section {
   .Heading {
       font-size: 12vw;
   }
+}
+
+/* Draw over */
+.Box {
+  overflow: hidden;
+  position: relative;
+}
+
+.Box:hover  {
+  .content {
+    transform: translateY(0);
+  }
+}
+
+.content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: var(--darkLemon);
+  display: flex;
+  flex-flow: column;
+  color: var(--stainlessSteel);
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  transform: translateY(-100%);
+  transition: .2s linear;
 }
