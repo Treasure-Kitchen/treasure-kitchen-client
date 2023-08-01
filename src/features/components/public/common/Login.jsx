@@ -10,9 +10,9 @@ import { setAuth } from "../../../auth/authSlice";
 
 const Login = () => {
   //const userId = document.cookie.replace(/(?:(?:^|.*;\s*)profile\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-  const google = () => {
-    window.open("http://localhost:5500/auth/google", "_self");
-  }
+  // const google = () => {
+  //   window.open("http://localhost:5500/auth/google", "_self");
+  // }
   const location = useLocation()
   const from = location.state?.from?.pathname || '/';
   const navigate = useNavigate();

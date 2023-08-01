@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Bungee+Inline&family=Fredericka+the+Great&family=Herr+Von+Muellerhoff&family=Kristi&family=Qwigley&family=Rubik+Moonrocks&family=Rye&family=Yesteryear&Akronim&family=Big+Shoulders+Inline+Text:wght@100&family=Codystar:wght@300&family=Fascinate+Inline&family=Londrina+Outline&family=Molle&family=Monofett&family=Piedra&family=Press+Start+2P&family=Raleway+Dots&family=Rubik+Gemstones&family=Rubik+Storm&family=Vast+Shadow&display=swap');
 
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 :root {
   --shadowBlack: #1B1610;
   --ebony: #080402;
@@ -24,6 +30,26 @@
   border-radius: 16px;
 }
 
+.bigSingleLetter {
+  font-size: 3rem;
+  color: var(--stainlessSteel);
+  background-color: var(--darkLemon);
+  width: 50%;
+  border-radius: 10%;
+}
+
+.Border25 {
+  border-bottom: 2px solid var(--darkLemon);
+  margin: auto;
+  padding: 0;
+  margin: 0;
+}
+
+.names {
+  font-size: 1rem;
+  color: var(--stainlessSteel);
+}
+
 .Logo {
   padding: .4rem;
   font-size: larger;
@@ -33,11 +59,15 @@
 }
 
 .FloatRight {
-  float: right;
+  float: right !important;
 }
 
 .Cursored {
   cursor: pointer;
+}
+
+.DarkGreen {
+  color: var(--darkLemon);
 }
 
 .Treasure {
@@ -80,7 +110,7 @@
 }
 
 .PaddingTop {
-  padding-top: 10rem;
+  padding-top: 5rem;
 }
 
 .AppHeading {
@@ -95,7 +125,7 @@
 }
 
 .LinkToButton {
-  background: var(--shadowBlack);
+  background: var(--darkLemon);
   color: var(--stainlessSteel);
   text-decoration: none;
   cursor: pointer;
@@ -202,9 +232,63 @@
   font-family: 'Bungee Inline', sans-serif;
   text-align: center;
   font-size: 7vw;
-  color: var(--shadowBlack);
+  color: var(--darkLemon);
   padding: 2rem 0;
 }
+
+/*STARTS: Styling for responsive list display*/
+.housing {
+  max-width: 1300px;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item {
+  flex: 0 0 calc(33.33% - 1rem);
+  max-width: calc(33.33% - 1rem);
+  width: 100%;
+  margin-bottom: 1rem;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.item:hover {
+  padding: 1.08rem;
+}
+
+section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media(max-width: 969px) {
+  section {
+    padding: 1rem 0rem;
+  }
+
+  .item {
+    flex: 0 0 calc(50% - 1rem);
+    max-width: calc(50% - 1rem);
+  }
+}
+
+@media(max-width: 600px) {
+  .item {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/*ENDS*/
 
 @media(max-width: 767px){
   .Heading {

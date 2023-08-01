@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import { useResetPasswordMutation } from '../../../api/authApi';
 import { toast } from 'react-toastify';
-import { Button, Card, Col, Container, Row, Spinner, Form, FloatingLabel } from 'react-bootstrap';
+import { Button, Col, Container, Row, Spinner, Form, FloatingLabel } from 'react-bootstrap';
 import { FaUndo } from 'react-icons/fa';
 
 const ResetUserPassword = () => {

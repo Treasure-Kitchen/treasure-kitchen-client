@@ -17,7 +17,7 @@ const Layout = () => {
     <Container fluid className='App m-0 px-0' style={{paddingTop: '10vh', backgroundImage: `url(${FLOWER_IMAGE})`, height: '100%', backgroundSize: 'cover'}}>
         <Outlet />
         <Button className='CartButton DeLink' disabled={dishes.length <= 0} onClick={onClick}>
-          <FaShoppingCart size={30} color='#1B1610'/>
+          <FaShoppingCart size={30} color='#161B02'/>
           <sub className='text-danger fw-bold'>
             {
               dishes.length <= numbers.Nine ?

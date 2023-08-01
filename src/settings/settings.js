@@ -59,3 +59,18 @@ export const numbers = {
   Nine: 9,
   Zero: 0
 }
+
+export const roles = {
+  User: 2004,
+  Regular: 2003,
+  Admin: 2002,
+  SuperAdmin: 2001
+}
+
+export const orderStatus = {
+  Pending: "secondary",
+  Placed: "warning",
+  Cancelled: "danger",
+  Confirmed: "primary",
+  Completed: "success"
+}

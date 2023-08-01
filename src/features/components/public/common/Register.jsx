@@ -9,9 +9,9 @@ import { FaUserPlus } from "react-icons/fa";
 
 const Register = () => {
   //const userId = document.cookie.replace(/(?:(?:^|.*;\s*)profile\s*\=\s*([^;]*).*$)|^.*$/, "$1");
-  const google = () => {
-    window.open("http://localhost:5500/auth/google", "_self");
-  }
+  // const google = () => {
+  //   window.open("http://localhost:5500/auth/google", "_self");
+  // }
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

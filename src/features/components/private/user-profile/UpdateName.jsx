@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { Button, Col, Row, Form, Spinner, FloatingLabel } from "react-bootstrap";
-import Card from "react-bootstrap/Card";
 import Container from "react-bootstrap/Container";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useGetProfileQuery, useUpdateNameMutation } from "../../../api/userApi";
-import { COVER_IMAGE } from "../../../../settings/settings";
 import { FaUserEdit } from "react-icons/fa";
 
 const UpdateName = () => {

@@ -75,8 +75,8 @@ const UpdateAddress = () => {
   }
 
   return (
-    <Container fluid>
-      <Row className="p-0 m-0 mt-5 pb-5 d-flex justify-content-center align-items-center m-auto">
+    <Container fluid className="PaddingTop">
+      <Row className="p-0 m-0 pb-5 d-flex justify-content-center align-items-center m-auto">
         <Col sm={0} md={2} lg={3} className="m-0 p-0"></Col>
         <Col sm={12} md={8} lg={6} className="d-flex justify-content-center align-items-center mt-5">
           {
