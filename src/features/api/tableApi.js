@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../../settings/settings';
 
-export const menuApi = createApi({
-    reducerPath: 'menuApi',
+export const tableApi = createApi({
+    reducerPath: 'tableApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: `${BASE_URL}/menus`,
+        baseUrl: `${BASE_URL}/tables`,
         prepareHeaders: (headers, { getState }) => {
             const { auth } = getState();
             const token = auth?.user?.accessToken;
@@ -12,46 +12,46 @@ export const menuApi = createApi({
             return headers;
         }
     }),
-    tagTypes: ['Menu'],
+    tagTypes: ['Table'],
     endpoints: (builder) => ({
-        createMenu: builder.mutation({
+        createTable: builder.mutation({
             query: (formData) => ({
                 url: ``,
                 method: 'POST',
                 body: formData
             }),
-            invalidatesTags: ['Menu']
+            invalidatesTags: ['Table']
         }),
-        getAllMenu: builder.query({
+        getAllTables: builder.query({
             query: () => ``,
-            providesTags: ['Menu']
+            providesTags: ['Table']
         }),
-        getMenuById: builder.query({
+        getTableById: builder.query({
             query: (id) => `/${id}`,
-            providesTags: ['Menu']
+            providesTags: ['Table']
         }),
-        updateMenu: builder.mutation({
+        updateTable: builder.mutation({
             query: ({ id, formData }) => ({
                 url: `/${id}`,
-                method: 'PUT',
+                method: 'PATCH',
                 body: formData
             }),
-            invalidatesTags: ['Menu']
+            invalidatesTags: ['Table']
         }),
-        deleteMenu: builder.mutation({
+        deleteTable: builder.mutation({
             query: (id) => ({
                 url: `/${id}`,
                 method: 'DELETE'
             }),
-            invalidatesTags: ['Menu']
+            invalidatesTags: ['Table']
         })
     })
 });
 
 export const {
-    useCreateMenuMutation,
-    useGetAllMenuQuery,
-    useGetMenuByIdQuery,
-    useDeleteMenuMutation,
-    useUpdateMenuMutation
-} = menuApi;
+    useCreateTableMutation,
+    useDeleteTableMutation,
+    useGetAllTablesQuery,
+    useGetTableByIdQuery,
+    useUpdateTableMutation
+} = tableApi;

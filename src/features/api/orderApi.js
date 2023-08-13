@@ -74,6 +74,10 @@ export const orderApi = createApi({
         getOrderTracks: builder.query({
             query: (id) => `/${id}/tracks`,
             invalidatesTags: ['Order']
+        }),
+        getUserHasOrders: builder.query({
+            query: () => `/user-has-order`,
+            providesTags: ['Order']
         })
     })
 });
@@ -88,5 +92,6 @@ export const {
     useDeleteOrderMutation,
     useConfirmOrderMutation,
     useCompleteOrderMutation,
-    useGetOrderTracksQuery
+    useGetOrderTracksQuery,
+    useGetUserHasOrdersQuery
 } = orderApi;

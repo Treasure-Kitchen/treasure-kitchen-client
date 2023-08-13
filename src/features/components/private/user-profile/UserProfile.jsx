@@ -5,7 +5,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FaEnvelope, FaMapMarkerAlt, FaUser } from "react-icons/fa";
 import { BsCalendar2DateFill, BsCartCheckFill } from 'react-icons/bs';
-import { useGetUserOrdersQuery } from "../../../api/orderApi";
+import { useGetUserHasOrdersQuery } from "../../../api/orderApi";
+import { useHasReservationQuery } from "../../../api/reservationApi";
 
 const UserProfile = () => {
 	const { user } = useSelector((state) => state.auth);
@@ -15,13 +16,14 @@ const UserProfile = () => {
 		isLoading
 	} = useGetProfileQuery(user?.user?.id);
 
-	const { data: orders } = useGetUserOrdersQuery('');
+	const { data: hasOrders, isLoading: isOrdersLoading } = useGetUserHasOrdersQuery();
+	const { data: hasReservation, isLoading: isReservationLoading } = useHasReservationQuery();
 
 	return (
 		<Container fluid className="PaddingTop">
 			<Row className="p-0 m-0 mt-5 mb-5 d-flex justify-content-center align-items-center">
 				{
-					isLoading ?
+					isLoading || isOrdersLoading || isReservationLoading ?
 						<Spinner /> :
 					isError ?
 						<Toast className='m-auto' bg='danger'>
@@ -68,7 +70,7 @@ const UserProfile = () => {
 									<BsCartCheckFill size={18}/>
 									<span>
 										{
-											orders?.Data?.length > 0 ?
+											hasOrders ?
 											<Link to='/my-orders' className="DarkGreen FloatRight">My Orders</Link> :
 											<Link to={`/orders/add`} className="DarkGreen FloatRight">Shop</Link>
 										}
@@ -78,8 +80,8 @@ const UserProfile = () => {
 									<BsCalendar2DateFill  size={18}/>
 									<span>
 										{
-											false ?
-											<Link to={`/reservations/${profile?._id}`} className="DarkGreen FloatRight" state={orders}>My Reservations</Link> :
+											hasReservation ?
+											<Link to={`/my-reservations`} className="DarkGreen FloatRight">My Reservations</Link> :
 											<Link to={`/reservations/add`} className="DarkGreen FloatRight">Add Reservation</Link>
 										}
 									</span>

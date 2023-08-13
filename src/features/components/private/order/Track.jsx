@@ -7,7 +7,7 @@ const Track = ({ track }) => {
     <div className="timeline-item">
         <div className="timeline-dot"></div>
         <div className="timeline-date fw-bold text-muted">{shortDateTime(track?.dateTime)} {shortLocalTime(track?.dateTime)}</div>
-        <Badge bg={`${orderStatus[track?.status]}`} className='p-3 fs-4'>{track?.status}</Badge>
+        <Badge bg={`${orderStatus[track?.orderStatus]}`} className='p-3 fs-4'>{track?.orderStatus}</Badge>
     </div>
   )
 }

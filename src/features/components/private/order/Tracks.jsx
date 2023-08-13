@@ -1,19 +1,18 @@
 import React from 'react'
-import { Container, Row } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { Button, Container, Row, Spinner, Toast } from 'react-bootstrap';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import Track from './Track';
+import { useGetOrderTracksQuery } from '../../../api/orderApi';
 
 const Tracks = () => {
     const { id } = useParams();
-    console.log(id);
-    const tracks = [
-      {_id: 1, status: 'Pending', dateTime: '2023-08-01 11:15'},
-      {_id: 2, status: 'Cancelled', dateTime: '2023-08-01 11:30'},
-      {_id: 3, status: 'Pending', dateTime: '2023-08-03 13:04'},
-      {_id: 4, status: 'Placed', dateTime: '2023-08-03 13:07'},
-      {_id: 5, status: 'Confirmed', dateTime: '2023-08-03 14:35'},
-      {_id: 6, status: 'Completed', dateTime: '2023-08-03 15:15'}
-    ]
+    const { data: orderTracks, isLoading, isError } = useGetOrderTracksQuery(id);
+    const navigate = useNavigate();
+
+    const goBack = () => {
+      navigate(-1, { replace: true });
+    }
+
   return (
     <Container className='py-5'>
       <Row className="px-2">
@@ -22,15 +21,28 @@ const Tracks = () => {
             <span className='SmallFont'>Order#: {id}</span>
           </h2>
       </Row>
-      <section className="timeline-section">
-        <div className="timeline-items">
-          {
-            tracks && tracks?.map(track => (
-              <Track track={track} />
-            ))
-          }
+      {
+        isLoading ? 
+          <div className='d-flex justify-content-center align-items-center mt-3'>
+            <Spinner />
+          </div> :
+        isError ?
+        <Toast className='m-auto mt-3' bg='danger'>
+          <Toast.Body className='text-white'>
+              <p>An error occurred fetching details. Please refresh. <Link to='/contact' className='fw-bold'>Contact Treasure Kitchen</Link> if issue persists.</p>
+          </Toast.Body>
+        </Toast> :
+        <section className="timeline-section">
+          <div className="timeline-items">
+            {
+              orderTracks && orderTracks?.map(track => (
+                <Track key={track?._id} track={track} />
+                ))
+            }
         </div>
-      </section>
+      </section>  
+      }
+      <Button onClick={goBack} className='ButtonToLink FloatRight p-2'>Back</Button>
     </Container>
   )
 }

@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from '../../settings/settings';
 
-export const menuApi = createApi({
-    reducerPath: 'menuApi',
+export const durationApi = createApi({
+    reducerPath: 'durationApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: `${BASE_URL}/menus`,
+        baseUrl: `${BASE_URL}/durations`,
         prepareHeaders: (headers, { getState }) => {
             const { auth } = getState();
             const token = auth?.user?.accessToken;
@@ -12,46 +12,41 @@ export const menuApi = createApi({
             return headers;
         }
     }),
-    tagTypes: ['Menu'],
+    tagTypes: ['Duration'],
     endpoints: (builder) => ({
-        createMenu: builder.mutation({
+        createDuration: builder.mutation({
             query: (formData) => ({
                 url: ``,
                 method: 'POST',
                 body: formData
             }),
-            invalidatesTags: ['Menu']
+            invalidatesTags: ['Duration']
         }),
-        getAllMenu: builder.query({
+        getAllDuration: builder.query({
             query: () => ``,
-            providesTags: ['Menu']
+            providesTags: ['Duration']
         }),
-        getMenuById: builder.query({
-            query: (id) => `/${id}`,
-            providesTags: ['Menu']
-        }),
-        updateMenu: builder.mutation({
+        updateDuration: builder.mutation({
             query: ({ id, formData }) => ({
                 url: `/${id}`,
                 method: 'PUT',
                 body: formData
             }),
-            invalidatesTags: ['Menu']
+            invalidatesTags: ['Duration']
         }),
-        deleteMenu: builder.mutation({
+        deleteDuration: builder.mutation({
             query: (id) => ({
                 url: `/${id}`,
                 method: 'DELETE'
             }),
-            invalidatesTags: ['Menu']
+            invalidatesTags: ['Duration']
         })
     })
 });
 
 export const {
-    useCreateMenuMutation,
-    useGetAllMenuQuery,
-    useGetMenuByIdQuery,
-    useDeleteMenuMutation,
-    useUpdateMenuMutation
-} = menuApi;
+    useCreateDurationMutation,
+    useDeleteDurationMutation,
+    useGetAllDurationQuery,
+    useUpdateDurationMutation
+} = durationApi;

@@ -79,7 +79,7 @@
 }
 
 .DarkGreen {
-  color: var(--darkLemon);
+  color: var(--darkLemon) !important;
 }
 
 .Treasure {
@@ -150,6 +150,15 @@
   background: transparent !important;
   outline: none !important;
   color: blue !important;
+  text-decoration: underline !important;
+  border: none !important;
+  padding: 0 5px !important;
+  margin: 0 !important;
+}
+
+.ButtonToLinkNoColor {
+  background: transparent !important;
+  outline: none !important;
   text-decoration: underline !important;
   border: none !important;
   padding: 0 5px !important;
@@ -267,7 +276,6 @@
 
 .timeline-items {
   max-width: 1000px;
-  margin: auto;
   display: flex;
   flex-wrap: wrap;
   position: relative;
@@ -402,6 +410,24 @@ section {
 }
 
 /*ENDS*/
+
+/* React Multi Date Time Picker Styles */
+.custom-input {
+  border-radius: 0.4rem;
+  margin: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 1.1rem 2.5rem;
+  background-color: white;
+  height: 100%;
+  width: 100%;
+}
+
+.custom-input:focus {
+  outline: none;
+}
+
+/* ENDS */
 
 @media(max-width: 767px){
   .Heading {

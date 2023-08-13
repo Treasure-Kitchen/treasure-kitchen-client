@@ -26,6 +26,8 @@ import ChangePawword from './features/components/private/user-profile/ChangePass
 import MyOrders from './features/components/private/order/MyOrders';
 import Dishes from './features/components/private/dish/Dishes';
 import Tracks from './features/components/private/order/Tracks';
+import AddReservation from './features/components/private/reservations/AddReservation';
+import Reservations from './features/components/private/reservations/Reservations';
 
 function App() {
   return (
@@ -54,6 +56,8 @@ function App() {
           <Route path='my-orders' element={<MyOrders />} />
           <Route path='my-orders/:id/tracks' element={<Tracks />} />
           <Route path='orders/add' element={<AddOrder />} />
+          <Route path='reservations/add' element={<AddReservation />} />
+          <Route path='my-reservations' element={<Reservations />} />
           <Route path='dishes' element={<Dishes />} />
           <Route path='user-profile/change-password' element={<ChangePawword />} />
         </Route>
