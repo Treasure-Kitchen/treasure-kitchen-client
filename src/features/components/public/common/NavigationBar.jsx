@@ -19,7 +19,7 @@ const NavigationBar = () => {
     }
 
     const onClick = () => {
-        navigate('/add-order', { replace: true });
+        navigate('/orders/add', { replace: true });
     }
 
   return (

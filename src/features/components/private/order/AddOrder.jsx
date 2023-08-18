@@ -127,7 +127,7 @@ const AddOrder = () => {
                                 <Card.Text className='text-muted p-1' style={{border: '1px solid #1B1610', minHeight: '3rem', borderRadius: '0.6rem'}}>
                                     {
                                         profile?.address ?
-                                        <p className='text-muted'>{address} <Link to={`/address/${profile?.address?._id}/edit`}>Edit</Link></p> :
+                                        <p className='text-muted'>{address} <Link to={`/address/${profile?.address?._id}/edit`} state={profile?.address}>Edit</Link></p> :
                                         <>
                                             <p className='text-muted'>No address found. <Link to='/address/add'>Add</Link></p>
                                         </>
