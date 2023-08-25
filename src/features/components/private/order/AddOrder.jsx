@@ -3,10 +3,9 @@ import { useEffect, useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { useGetProfileQuery } from '../../../api/userApi';
-import { Form, ListGroup, Spinner, Toast } from 'react-bootstrap';
+import { FloatingLabel, Form, Spinner, Toast } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { colors, currencies } from '../../../../settings/settings';
 import { FaPlusCircle, FaTimesCircle } from 'react-icons/fa';
@@ -25,7 +24,7 @@ const AddOrder = () => {
     const [total, setTotal] = useState();
 
     const { data: profile, isLoading, isError } = useGetProfileQuery(user?.id);
-    const { data, isLoading: isLoadingDish, isError: isDishError } = useGetDishesByIdsQuery(itemsIds);
+    const { data, isLoading: isLoadingDish } = useGetDishesByIdsQuery(itemsIds);
     const [createOrder, { data: createData, isLoading: isCreateLoading, isSuccess, isError: isOrderError, error: orderError }] = useCreateOrderMutation();
 
     let address = profile?.address?.line1;
@@ -59,7 +58,7 @@ const AddOrder = () => {
         if(isSuccess || createData){
             toast.success(createData?.message);
             dispatch(clearDishes());
-            navigate(-1, { replace: true });
+            navigate(`/orders/${createData?.id}/payment`, { replace: true });
         }
     }, [createData, isSuccess, dispatch, navigate])
 
@@ -95,105 +94,105 @@ const AddOrder = () => {
         if (form.checkValidity() === false) {
             e.preventDefault();
             e.stopPropagation();
+        }
+        setValidated(true);
+        e.preventDefault();
+        if(phoneNumber && dishes.length > 0 && profile?.address){
+            const data = { phoneNumber: phoneNumber, dishes: dishes }
+            await createOrder(data);
+        } else if(dishes?.length <= 0){
+            toast.info("You must add one or more items to place an order")
         } else {
-            setValidated(true);
-            e.preventDefault();
-            if(phoneNumber && dishes.length > 0 && profile?.address){
-                const data = { phoneNumber: phoneNumber, dishes: dishes }
-                await createOrder(data);
-            }
+            toast.info("Please go to your profile to add the delivery address.")
         }
     };
 
   return (
     <Container fluid style={{marginTop: '10vh'}} className='pb-5'>
-        <Row className='mt-5 d-flex justify-content-center'>
+        <Row className=''>
+            <h2 className='fw-bold pt-3 mb-0 pb-0 DarkGreen Border25'>Check Out</h2>
+        </Row>
+        <Row className='mt-2 d-flex justify-content-center'>
             <Col sm={0} md={3} lg={4}></Col>
             <Col sm={12} md={6} lg={4}>
-                <Card style={{minHeight: '30vh'}} className='mb-2'>
-                    <Card.Header className='fw-bold fs-4'>Order Details</Card.Header>
+                <Row className='p-2'>
                     {
                         isLoading || isLoadingDish ?
                             <Spinner className='m-auto'/> :
-                        isError || isDishError ?
+                        isError ?
                             <Toast className='m-auto' bg='danger'>
                                 <Toast.Body className='text-white'>
                                     <p>An error occurred fetching details. Please refresh. <Link to='/contact' className='fw-bold'>Contact Treasure Kitchen</Link> if issue persists.</p>
                                 </Toast.Body>
                             </Toast> :
                         <>
-                            <Card.Body>
-                                <Card.Subtitle className='mx-1'>Delivery Address</Card.Subtitle>
-                                <Card.Text className='text-muted p-1' style={{border: '1px solid #1B1610', minHeight: '3rem', borderRadius: '0.6rem'}}>
-                                    {
-                                        profile?.address ?
-                                        <p className='text-muted'>{address} <Link to={`/address/${profile?.address?._id}/edit`} state={profile?.address}>Edit</Link></p> :
-                                        <>
-                                            <p className='text-muted'>No address found. <Link to='/address/add'>Add</Link></p>
-                                        </>
-                                    }
-                                </Card.Text>
-                                <Card.Subtitle className='fw-bold' style={{borderBottom: '2px solid #1B1610'}}>ITEMS</Card.Subtitle>
-                                <ListGroup variant="flush">
+                            <div className='p-2 text-white m-0 forms py-3'>
+                                <h5 className='mx-2 fw-bold'>Delivery Address</h5>
+                                {
+                                    profile?.address ?
+                                    <p className='text-white border-2 p-2' style={{border: '1px solid #1B1610', minHeight: '3rem', borderRadius: '0.6rem'}}>{address} <Link to={`/address/${profile?.address?._id}/edit`} state={profile?.address}>Edit</Link></p> :
+                                    <>
+                                        <p className='text-white'>No address found. <Link to='/address/add'>Add</Link></p>
+                                    </>
+                                }
+                                <h5 className='fw-bold' style={{borderBottom: '2px solid #1B1610'}}>Items</h5>
+                                <div className='DarkBorderBottom-2'>
                                     {
                                         data?.length > 0 ?
                                         data?.map(dish => (
-                                            <ListGroup.Item key={dish?._id} className='p-0 m-0 text-muted'>
-                                                <span>{dish?.name}</span>
+                                            <p className="" key={dish?._id}>
+                                                <span className="fw-bold">{dish?.name}</span>
                                                 <span className='FloatRight Cursored px-2'>
-                                                    {
-                                                        dishes?.includes(dish?._id) ?
-                                                        <FaTimesCircle color='red' onClick={() => onRemoveDish(dish?._id)}/> :
-                                                        <FaPlusCircle color={`${colors.Gold}`} onClick={() => onAddDish(dish?._id)}/>
-                                                    }
-                                                </span>
-                                                <span className='FloatRight'>{currencies.Naira}{formatMoneyTo2DP(dish?.price)}</span>
-                                            </ListGroup.Item>
+                                                {
+                                                    dishes?.includes(dish?._id) ?
+                                                    <FaTimesCircle color='red' onClick={() => onRemoveDish(dish?._id)}/> :
+                                                    <FaPlusCircle color={`${colors.Gold}`} onClick={() => onAddDish(dish?._id)}/>
+                                                }
+                                            </span>
+                                                <span className="FloatRight">{currencies.Naira}{formatMoneyTo2DP(dish?.price)}</span>
+                                            </p>
                                         )) :
                                         <></>
                                     }
-                                </ListGroup>
-                            </Card.Body>
-                            <Card.Footer>
-                                <span className='fw-bold'>Total: </span>
-                                <span className='fw-bold text-muted FloatRight'>{currencies.Naira}{formatMoneyTo2DP(total)}</span>
-                            </Card.Footer>
+                                </div>
+                                <div>
+                                    <span className='fw-bold'>TOTAL: </span>
+                                    <span className='fw-bold text-muted FloatRight'>{currencies.Naira}{formatMoneyTo2DP(total)}</span>
+                                </div>
+                                
+                                <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                                    <Row className="py-3">
+                                        <Col lg={12} className='mb-2'>
+                                            <FloatingLabel label='Phone Number: +1234567890'>
+                                                <Form.Control 
+                                                    className="p-3"
+                                                    type="tel"
+                                                    autoComplete="off"
+                                                    required      
+                                                    id="phoneNumber"
+                                                    name="phoneNumber"
+                                                    value={phoneNumber}
+                                                    onChange={onChange}/>
+                                                    <Form.Control.Feedback type="invalid">Phone number is required!</Form.Control.Feedback>
+                                            </FloatingLabel>
+                                        </Col>
+                                        <Row lg={12} className='m-auto p-0 m-0'>
+                                            <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-1">
+                                                <Button type="submit" className='loginButton noOutline w-100 p-2 btn-secondary' onClick={goBack} disabled={isCreateLoading}>Back</Button>
+                                            </Col>
+                                            <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-1">
+                                            { isCreateLoading ? 
+                                                <Button type="submit" className='loginButton w-100 noOutline p-1' style={{background: '#583010'}} disabled={isCreateLoading}><Spinner /></Button> :
+                                                <Button type="submit" className='loginButton w-100 p-2 noOutline BtnColor' style={{background: '#583010'}} disabled={isLoading && isLoadingDish}>Place Order</Button>
+                                            }
+                                            </Col>
+                                        </Row>
+                                    </Row>
+                                </Form>
+                            </div>
                         </>
                     }
-                </Card>
-                <Card bg='light' className="m-1 w-100 BoxShadow m-auto">
-                    <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                        <Row className="mb-3 p-2">
-                            <Col lg={12} className='mb-1'>
-                                <Form.Group>
-                                    <Form.Label className='RegistrationLabel'>Phone Number</Form.Label>
-                                    <Form.Control 
-                                        className="p-2"
-                                        type="tel"
-                                        autoComplete="off"
-                                        required      
-                                        id="phoneNumber"
-                                        name="phoneNumber"
-                                        value={phoneNumber}
-                                        onChange={onChange}
-                                        placeholder="+1234567890"/>
-                                        <Form.Control.Feedback type="invalid">Phone number is required!</Form.Control.Feedback>
-                                </Form.Group>
-                            </Col>
-                            <Row lg={12} className='m-auto p-0 m-0'>
-                                <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-1">
-                                    <Button type="submit" className='loginButton noOutline w-100 p-2 btn-secondary' onClick={goBack} disabled={isCreateLoading}>Back</Button>
-                                </Col>
-                                <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-1">
-                                { isCreateLoading ? 
-                                    <Button type="submit" className='loginButton w-100 noOutline p-1' style={{background: '#583010'}} disabled={isCreateLoading}><Spinner /></Button> :
-                                    <Button type="submit" className='loginButton w-100 p-2 noOutline' style={{background: '#583010'}} disabled={isLoading && isLoadingDish}>Place Order</Button>
-                                }
-                                </Col>
-                            </Row>
-                        </Row>
-                    </Form>
-                </Card>
+                </Row>
             </Col>
             <Col sm={0} md={3} lg={4}></Col>
         </Row>

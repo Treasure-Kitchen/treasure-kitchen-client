@@ -60,6 +60,19 @@ export const numbers = {
   Zero: 0
 }
 
+export const monthsInts = ["Select Month", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+
+export const yearsInts = () => {
+  const startYear = new Date().getFullYear();
+    const endYear = startYear + numbers.Nine;
+    const result = ["Select Year"];
+    for(let i = startYear; i <= endYear; i++){
+        const value = i.toString().substring(2);
+        result.push(value);
+    }
+    return result;
+}
+
 export const roles = {
   User: 2004,
   Regular: 2003,

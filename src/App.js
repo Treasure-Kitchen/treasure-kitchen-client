@@ -28,6 +28,7 @@ import Dishes from './features/components/private/dish/Dishes';
 import Tracks from './features/components/private/order/Tracks';
 import AddReservation from './features/components/private/reservations/AddReservation';
 import Reservations from './features/components/private/reservations/Reservations';
+import Payment from './features/components/private/order/Payment';
 
 function App() {
   return (
@@ -56,6 +57,7 @@ function App() {
           <Route path='my-orders' element={<MyOrders />} />
           <Route path='my-orders/:id/tracks' element={<Tracks />} />
           <Route path='orders/add' element={<AddOrder />} />
+          <Route path='orders/:id/payment' element={<Payment />} />
           <Route path='reservations/add' element={<AddReservation />} />
           <Route path='my-reservations' element={<Reservations />} />
           <Route path='dishes' element={<Dishes />} />
