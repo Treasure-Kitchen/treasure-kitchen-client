@@ -43,7 +43,10 @@ export const orderApi = createApi({
             invalidatesTags: ['Order']
         }),
         deleteOrder: builder.mutation({
-            query: (id) => `/${id}`,
+            query: (id) => ({
+               url:  `/${id}`,
+               method: 'DELETE'
+            }),
             invalidatesTags: ['Order']
         }),
         payForOrder: builder.mutation({
@@ -51,6 +54,13 @@ export const orderApi = createApi({
                 url: `/${id}/pay`,
                 method: 'PATCH',
                 body: formData
+            }),
+            invalidatesTags: ['Order']
+        }),
+        cancelOrder: builder.mutation({
+            query: (id) => ({
+                url: `/${id}/cancel`,
+                method: 'PATCH'
             }),
             invalidatesTags: ['Order']
         }),
@@ -71,6 +81,10 @@ export const orderApi = createApi({
         getOrderTracks: builder.query({
             query: (id) => `/${id}/tracks`,
             invalidatesTags: ['Order']
+        }),
+        getUserHasOrders: builder.query({
+            query: () => `/user-has-order`,
+            providesTags: ['Order']
         })
     })
 });
@@ -85,5 +99,7 @@ export const {
     useDeleteOrderMutation,
     useConfirmOrderMutation,
     useCompleteOrderMutation,
-    useGetOrderTracksQuery
+    useGetOrderTracksQuery,
+    useGetUserHasOrdersQuery,
+    useCancelOrderMutation
 } = orderApi;

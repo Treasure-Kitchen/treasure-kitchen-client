@@ -12,7 +12,7 @@ const CreateOrder = () => {
     const [dishesToOrder, setDishesToOrder] = useState([]);
     const { data: dishesFromDb } = useGetAllDishesQuery('');
     const [createOrder, { data, isError, error, isLoading, isSuccess }] = useCreateOrderMutation();
-console.log(isError, error)
+
     useEffect(() => {
       if(isError){
         toast.error(error?.data?.message);
@@ -28,6 +28,7 @@ console.log(isError, error)
     const goBack = () => {
       navigate(-1, { replace: true });
     }
+    
     const [formData, setFormData] = useState({
       phoneNumber: ''
     })

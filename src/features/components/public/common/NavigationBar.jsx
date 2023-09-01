@@ -19,7 +19,7 @@ const NavigationBar = () => {
     }
 
     const onClick = () => {
-        navigate('/checkout', { replace: true });
+        navigate('/orders/add', { replace: true });
     }
 
   return (
@@ -32,7 +32,7 @@ const NavigationBar = () => {
                 <span className="navbar-toggler-icon"></span>
             </button>
             {/* Sidebar */}
-            <div className="offcanvas offcanvas-start" style={{background: 'rgba(27, 22, 16, 0.15)', backdropFilter: 'blur(10px)'}} tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div className="offcanvas offcanvas-start OffCanvas" tabIndex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
                 <div className="offcanvas-header text-white border-bottom">
                     <h5 className="offcanvas-title" id="offcanvasNavbarLabel">
                         <Logo />

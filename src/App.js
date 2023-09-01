@@ -15,12 +15,20 @@ import VerifyEmployeeEmail from './features/components/public/verification/Verif
 import ResetUserPassword from './features/components/public/common/ResetUserPassword';
 import UserProfile from './features/components/private/user-profile/UserProfile';
 import UpdateName from './features/components/private/user-profile/UpdateName';
+import NavigationBar from './features/components/public/common/NavigationBar';
 import CreateOrder from './features/components/private/orders/CreateOrder';
+import Checkout from './features/components/private/order/Checkout';
+import MenuList from './features/components/public/menu/MenuList';
 import AddAddress from './features/components/private/address/AddAddress';
 import UpdateAddress from './features/components/private/address/UpdateAddress';
-import NavigationBar from './features/components/public/common/NavigationBar';
-import MenuList from './features/components/public/menu/MenuList';
-import Checkout from './features/components/public/common/order/Checkout';
+import AddOrder from './features/components/private/order/AddOrder';
+import ChangePawword from './features/components/private/user-profile/ChangePassword';
+import MyOrders from './features/components/private/order/MyOrders';
+import Dishes from './features/components/private/dish/Dishes';
+import Tracks from './features/components/private/order/Tracks';
+import AddReservation from './features/components/private/reservations/AddReservation';
+import Reservations from './features/components/private/reservations/Reservations';
+import Payment from './features/components/private/order/Payment';
 
 function App() {
   return (
@@ -46,6 +54,14 @@ function App() {
           <Route path='address/:id/edit' element={<UpdateAddress />} />
           <Route path='menus/:id' element={<MenuList />} />
           <Route path='checkout' element={<Checkout />} />
+          <Route path='my-orders' element={<MyOrders />} />
+          <Route path='my-orders/:id/tracks' element={<Tracks />} />
+          <Route path='orders/add' element={<AddOrder />} />
+          <Route path='orders/:id/payment' element={<Payment />} />
+          <Route path='reservations/add' element={<AddReservation />} />
+          <Route path='my-reservations' element={<Reservations />} />
+          <Route path='dishes' element={<Dishes />} />
+          <Route path='user-profile/change-password' element={<ChangePawword />} />
         </Route>
       </Routes>
     </>
