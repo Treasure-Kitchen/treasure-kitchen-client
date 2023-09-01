@@ -57,6 +57,13 @@ export const orderApi = createApi({
             }),
             invalidatesTags: ['Order']
         }),
+        cancelOrder: builder.mutation({
+            query: (id) => ({
+                url: `/${id}/cancel`,
+                method: 'PATCH'
+            }),
+            invalidatesTags: ['Order']
+        }),
         confirmOrder: builder.mutation({
             query: (id) => ({
                 url: `/${id}/confirm`,
@@ -93,5 +100,6 @@ export const {
     useConfirmOrderMutation,
     useCompleteOrderMutation,
     useGetOrderTracksQuery,
-    useGetUserHasOrdersQuery
+    useGetUserHasOrdersQuery,
+    useCancelOrderMutation
 } = orderApi;

@@ -1,21 +1,73 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button, Col, Container, FloatingLabel, Form, Row, Spinner } from 'react-bootstrap'
 import { useNavigate, useParams } from 'react-router-dom';
 import { monthsInts, yearsInts } from '../../../../settings/settings';
+import { toast } from 'react-toastify';
+import { usePayForOrderMutation } from '../../../api/orderApi';
 
 const Payment = () => {
     const [validated, setValidated] = useState(false);
     const navigate = useNavigate();
     const { id } = useParams();
-    console.log(id);
+    const [pay, { data, isLoading, isError, error, isSuccess }] = usePayForOrderMutation();
+
+    const [formData, setFormData] = useState({
+        cardNumber: '',
+        cvv: '',
+        expMonth: '',
+        expYear: ''
+    });
 
     const goBack = () => {
         navigate(-1, { replace: true });
     }
 
-    const handleSubmit = (e) => {
-        setValidated(true)
+    const { cardNumber, cvv, expMonth, expYear } = formData;
+
+    const onChange = (e) => {
+        setFormData((prevState) => ({
+          ...prevState,
+          [e.target.name]: e.target.value
+        }))
     }
+
+    useEffect(() => {
+        if(isError){
+            toast.error(error?.data?.message)
+        }
+    }, [isError, error])
+
+    useEffect(() => {
+        if(isSuccess || data){
+            toast.success(data?.message);
+            navigate(`/my-orders`, { replace: true });
+        }
+    }, [data, isSuccess, navigate])
+      
+    const handleSubmit = async (e) => {
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        setValidated(true);
+        e.preventDefault();
+
+        if(cardNumber && cvv > 0 && expMonth && expYear){
+            const formData = { 
+                cardNumber: cardNumber, 
+                cvv: cvv, 
+                expMonth: expMonth, 
+                expYear: expYear 
+            }
+
+            const data = { id: id, formData: formData }
+            await pay(data);
+
+        } else {
+            toast.info("Please enter all the required details")
+        }
+    };
 
   return (
     <Container fluid className="PaddingTop">
@@ -33,10 +85,10 @@ const Payment = () => {
                         type="text"
                         autoComplete="off"
                         required      
-                        id="line1"
-                        name="line1"
-                        value={''}
-                        onChange={''}/>
+                        id="cardNumber"
+                        name="cardNumber"
+                        value={cardNumber}
+                        onChange={onChange}/>
                         <Form.Control.Feedback type="invalid">Card Number is required!</Form.Control.Feedback>
                     </FloatingLabel>
                     </Col>
@@ -46,10 +98,10 @@ const Payment = () => {
                                 <Form.Select
                                     required
                                     className='p-3'
-                                    id="country"
-                                    name="country"
-                                    value={''}
-                                    onChange={''}>
+                                    id="expMonth"
+                                    name="expMonth"
+                                    value={expMonth}
+                                    onChange={onChange}>
                                     { monthsInts.map((month, index) => (
                                         index === 0 ?
                                         <option value="" key={index} disabled selected hidden>{month}</option> :
@@ -63,11 +115,11 @@ const Payment = () => {
                             <Form.Group as={Col} className='mb-2'>
                                 <Form.Select
                                     required
-                                    id="adminArea"
+                                    id="expYear"
                                     className='p-3'
-                                    name="adminArea"
-                                    value={''}
-                                    onChange={''}>
+                                    name="expYear"
+                                    value={expYear}
+                                    onChange={onChange}>
                                     <option disabled selected hidden>YEAR</option>
                                     { yearsInts().map((year, index) => (
                                         index === 0 ?
@@ -85,10 +137,10 @@ const Payment = () => {
                             <Form.Control 
                                 type="text"
                                 autoComplete="off"
-                                id="locality"
-                                name="locality"
-                                value={''}
-                                onChange={''}/>
+                                id="cvv"
+                                name="cvv"
+                                value={cvv}
+                                onChange={onChange}/>
                             </FloatingLabel>
                         </Col>
                         <Col className='mb-1 m-0 p-0 px-1'>
@@ -99,15 +151,15 @@ const Payment = () => {
                     </Row>
                     <Row className='m-0 p-0'>
                         <Col className="d-flex justify-content-center align-items-center mb-1 p-1">
-                            { false ? 
+                            { isLoading ? 
                                 <Button type="submit" className='loginButton w-100 noOutline p-2 BtnColor'><Spinner /></Button> :
-                                <Button type="submit" className='loginButton w-100 p-3 noOutline BtnColor' disabled={false}>Proceed</Button>
+                                <Button type="submit" className='loginButton w-100 p-3 noOutline BtnColor' disabled={isLoading}>Proceed</Button>
                             }
                         </Col>
                     </Row>
                     <Row className='m-0 p-0'>
                         <Col className="d-flex justify-content-center align-items-center mb-1 p-1">
-                            <Button type="submit" className='loginButton noOutline w-100 p-3 btn-secondary' onClick={goBack} disabled={false}>Back</Button>
+                            <Button type="submit" className='loginButton noOutline w-100 p-3 btn-secondary' onClick={goBack} disabled={isLoading}>Back</Button>
                         </Col>
                     </Row>
                 </Row>

@@ -102,7 +102,9 @@ const AddOrder = () => {
             await createOrder(data);
         } else if(dishes?.length <= 0){
             toast.info("You must add one or more items to place an order")
-        } else {
+        } else if (!phoneNumber) {
+            toast.info("Please enter your phone number.")
+        } else if (!address) {
             toast.info("Please go to your profile to add the delivery address.")
         }
     };
@@ -165,7 +167,6 @@ const AddOrder = () => {
                                         <Col lg={12} className='mb-2'>
                                             <FloatingLabel label='Phone Number: +1234567890'>
                                                 <Form.Control 
-                                                    className="p-3"
                                                     type="tel"
                                                     autoComplete="off"
                                                     required      

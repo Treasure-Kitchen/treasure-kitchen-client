@@ -1,9 +1,53 @@
 import { Link } from "react-router-dom"
 import { formatMoneyTo2DP, shortDateTime } from "../../../../settings/helpers"
 import { currencies, orderStatus, paymentStatus } from "../../../../settings/settings"
-import { Badge } from "react-bootstrap"
+import { Badge, Button } from "react-bootstrap"
+import { useCancelOrderMutation, useDeleteOrderMutation } from "../../../api/orderApi"
+import { toast } from "react-toastify"
+import { useEffect } from "react"
 
 const Order = ({order}) => {
+    const [remove, { data, isError, error, isSuccess }] = useDeleteOrderMutation();
+    const [cancel, 
+            { data: cancelData, isError: isCancelError, error: cancelError, isSuccess: isCancelSuccess }
+        ] = useCancelOrderMutation();
+
+    const onDelete = async () => {
+        if(order?._id){
+            await remove(order?._id);
+        } else {
+            toast.error("Your request can not be completed at this moment. Please try again later.");
+        }
+    }
+
+    const onCancel = async () => {
+        if(order?._id){
+            await cancel(order?._id);
+        } else {
+            toast.error("Your request can not be completed at this moment. Please try again later.");
+        }
+    }
+
+    useEffect(() => {
+        if (isError){
+            toast.error(error?.data?.message);
+        }
+
+        if(isCancelError){
+            toast.error(cancelError?.data?.message);
+        }
+    }, [error, isError, isCancelError, cancelError]);
+
+    useEffect(() => {
+        if (data || isSuccess){
+            toast.success(data?.message);
+        }
+
+        if(cancelData || isCancelSuccess){
+            toast.success(cancelData?.message);
+        }
+    }, [isSuccess, data, cancelData, isCancelSuccess])
+
   return (
     <>
         <p>
@@ -32,6 +76,23 @@ const Order = ({order}) => {
         <span  className="FloatRight pt-2">
             <Link to={`${order?._id}/tracks`} className="DarkGreen">[Tracks]</Link>
         </span>
+        <div  className="FloatRight pt-2">
+            {
+                order?.status !== "Completed" && 
+                order?.status !== "Confirmed" ?
+                    <>
+                        <Link to={`/orders/${order?._id}/payment`} className="DarkGreen fw-bold">[Pay]</Link>
+                        <Button onClick={onDelete} className="text-danger fw-bold DeLink m-auto mb-1 mx-2">[Delete]</Button>
+                        {
+                            order?.status !== "Cancelled" ?
+                            <>
+                                <Button onClick={onCancel} className="text-danger DeLink m-auto mb-1 mx-1">[Cancel]</Button>
+                            </> : <></>
+                        }
+                    </> :
+                    <></>
+            }
+        </div>
     </>
   )
 }
