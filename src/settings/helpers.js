@@ -28,3 +28,11 @@ export const numberToTime = (number) => {
     const minText = minutes > 1 ? `${minutes} Minutes` : `${minutes} Minute`;
     return hourText + " " + minText;
 }
+
+export const toEmailLink = (address) => {
+    return `mailto:${address}`
+}
+
+export const toPhoneLink = (phone, ext) => {
+    return `tel:${phone}${ext}`
+}
