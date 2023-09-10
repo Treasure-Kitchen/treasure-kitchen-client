@@ -29,6 +29,9 @@ import Tracks from './features/components/private/order/Tracks';
 import AddReservation from './features/components/private/reservations/AddReservation';
 import Reservations from './features/components/private/reservations/Reservations';
 import Payment from './features/components/private/order/Payment';
+import Faq from './features/components/public/common/Faq';
+import Unauthorized from './features/components/public/common/Unauthorized';
+import PageNotFound from './features/components/public/common/PageNotFound';
 
 function App() {
   return (
@@ -39,8 +42,11 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='login' element={<Login />} />
           <Route path='register' element={<Register />} />
+          <Route path='unauthorized' element={<Unauthorized />} />
+          <Route path='*' element={<PageNotFound />} />
           <Route path='about' element={<About />} />
           <Route path='contact' element={<Contact />} />
+          <Route path='faq' element={<Faq />} />
           <Route path='password-reset' element={<ResetPassword />} />
           <Route path='user-password-reset' element={<ResetUserPassword />} />
           <Route path='verify-email' element={<VerifyEmployeeEmail />} />

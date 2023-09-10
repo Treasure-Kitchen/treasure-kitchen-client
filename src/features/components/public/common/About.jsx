@@ -23,7 +23,7 @@ const About = () => {
                       </Toast.Body>
                     </Toast> :
                   <>
-                    <Row className='mt-5 mb-3 text-center mx-3'>
+                    <Row className='mt-5 mb-3 text-center mx-1'>
                       <h2 className='fw-bold'>GET TO KNOW US</h2>
                       <p className='forms mt-3 text-white fw-bold'>Your values. Core values help the reader connect with you and your business on a personal level.</p>
                     </Row>
