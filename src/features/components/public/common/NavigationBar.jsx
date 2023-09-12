@@ -39,7 +39,7 @@ const NavigationBar = () => {
                     <button type="button" className="btn-close btn-close-white shadow-none" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div className="offcanvas-body d-flex flex-column flex-lg-row p-4 p-lg-0">
-                    <ul className="navbar-nav JustifyContent fs-5 align-items-start flex-grow-1 pe-3">
+                    <ul className="navbar-nav JustifyContent fs-5 align-items-center flex-grow-1 pe-3">
                         <li className="nav-item">
                             <Link aria-current="page" className="nav-link" to="/" ><FaHome size={25}/> Home</Link>
                         </li>
