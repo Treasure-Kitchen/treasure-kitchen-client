@@ -146,6 +146,15 @@
   border-radius: .3rem;
 }
 
+.LinkToText {
+  text-decoration: none;
+  color: var(--stainlessSteel);
+}
+
+.MutedForDarkGreen {
+  color: #808080;
+}
+
 .ButtonToLink {
   background: transparent !important;
   outline: none !important;
@@ -440,6 +449,13 @@ section {
   }
 }
 
+/* For Navigation Bar*/
+@media(min-width: 992px){
+  .JustifyContent {
+      justify-content: center;
+  }
+}
+
 /* Draw over */
 .Box {
   overflow: hidden;
@@ -467,4 +483,11 @@ section {
   padding: 2rem;
   transform: translateY(-100%);
   transition: .2s linear;
+}
+
+/* Footer */
+.Footer {
+  min-height: 30vh;
+  background: var(--darkLemon);
+  color: var(--stainlessSteel);
 }

@@ -25,7 +25,7 @@ const About = () => {
                   <>
                     <Row className='mt-5 mb-3 text-center mx-1'>
                       <h2 className='fw-bold'>GET TO KNOW US</h2>
-                      <p className='forms mt-3 text-white fw-bold'>Your values. Core values help the reader connect with you and your business on a personal level.</p>
+                      <p className='forms mt-3 text-white fw-bold'>Value for your money, quality above profiltand timeliness is the foundation of our purpose.</p>
                     </Row>
                     <Row>
                       <Col sm={12} md={6}>
@@ -43,7 +43,7 @@ const About = () => {
                                           </div>
                                       </div>
                                       <h3 className='text-center BoldText'>Our Mission</h3>
-                                      <p className='text-center text-white'>A mission statement. This describes the purpose of your business as it relates to the industry or market you serve.</p>
+                                      <p className='text-center text-white'>To share a plate of your favorite dish, prepared using our unique recipe.</p>
                                   </Row>
                               </Col>   
                           </Row>
@@ -63,7 +63,7 @@ const About = () => {
                                           </div>
                                       </div>
                                       <h3 className='text-center BoldText'>Our Vision</h3>
-                                      <p className='text-center text-white'>A vision statement. Outline the future of your business in this section.</p>
+                                      <p className='text-center text-white'>To enjoy the patronage of everyone on the planet Earth, at least once.</p>
                                   </Row>
                               </Col>
                           </Row>

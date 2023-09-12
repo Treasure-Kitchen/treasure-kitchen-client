@@ -25,6 +25,8 @@ const Login = () => {
   });
   const { emailAddress, password } = formData;
 
+  const goBack = () => navigate(-1);
+
   useEffect(() => {
     if(isError){
         toast.error(error?.data?.message)
@@ -62,8 +64,8 @@ const Login = () => {
   return (
     <Container fluid>
       <Row className="p-0 m-0 mt-5 pb-5 d-flex justify-content-center align-items-center m-auto">
-        <Col sm={0} md={2} lg={3}></Col>
-        <Col sm={12} md={8} lg={6} className="mt-3">
+        <Col sm={0} md={2} lg={4}></Col>
+        <Col sm={12} md={8} lg={4} className="mt-3">
           <Form noValidate validated={validated} onSubmit={handleSubmit} className="forms">
             <h4 className='text-center fw-5 text-white pt-3'>
               <FaSignInAlt /> Sign In
@@ -100,16 +102,21 @@ const Login = () => {
                 <span>No account? <Link to='/register' className="">Sign up</Link></span><br/>
                 <span><Link to='/user-password-reset' className="">Forgot password?</Link></span>
               </Col>
-              <Col lg={12} className="d-flex justify-content-center align-items-center p-1 m-0">
-                { isLoading ? 
-                    <Button type="submit" className='loginButton noOutline p-1 BtnColor'><Spinner /></Button> :
-                    <Button type="submit" className='loginButton p-2 noOutline BtnColor' disabled={isLoading}><FaSignInAlt/> Sign In</Button>
-                }
-              </Col>
+              <Row lg={12} className='m-auto p-0 m-0'>
+                  <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-1">
+                      <Button type="submit" className='loginButton noOutline w-100 p-2 btn-secondary' onClick={goBack} disabled={isLoading}>Back</Button>
+                  </Col>
+                  <Col sm={12} md={6} className="d-flex justify-content-center align-items-center mb-1">
+                  { isLoading ? 
+                      <Button type="submit" className='loginButton w-100 noOutline p-1' style={{background: '#583010'}} disabled={isLoading}><Spinner /></Button> :
+                      <Button type="submit" className='loginButton w-100 p-2 noOutline BtnColor' style={{background: '#583010'}} disabled={isLoading}>Sign In</Button>
+                  }
+                  </Col>
+              </Row>
             </Row>
           </Form>
         </Col>
-        <Col sm={0} md={2} lg={3}></Col>
+        <Col sm={0} md={2} lg={4}></Col>
       </Row>
     </Container>
   )

@@ -36,3 +36,7 @@ export const toEmailLink = (address) => {
 export const toPhoneLink = (phone, ext) => {
     return `tel:${phone}${ext}`
 }
+
+export const getCurrentYear = () => {
+    return new Date().getFullYear();
+}
