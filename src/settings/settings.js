@@ -4,7 +4,7 @@ export const COVER_IMAGE = 'https://res.cloudinary.com/otrprojs/image/upload/v16
 export const FLOWER_IMAGE = 'https://res.cloudinary.com/otrprojs/image/upload/v1690585998/pexels-lumn-295771_uwgzzi.jpg';
 export const FLOWER_IMAGE2 = 'https://res.cloudinary.com/otrprojs/image/upload/v1690574423/pexels-karolina-grabowska-4466492_pmopzk.jpg';
 export const BASE_URL = 'https://treasure-kitchen-server.onrender.com/api';
-export const USER_AUTH_BASE_URL = 'http://localhost:5500';
+export const USER_AUTH_BASE_URL = 'https://treasure-kitchen-server.onrender.com';
 export const MULTI_SELECT_STYLE = {
     chips: {
       background: "#583010"
